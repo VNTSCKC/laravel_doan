@@ -1,27 +1,31 @@
 @extends('layouts.admin')
+@section('css')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endsection
 @section('content')
 
 <form action="{{route('xu-li-them-moi-nguoi-dung')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control"  placeholder="Username" name="username">
+        <input type="text" class="form-control"  placeholder="Username" name="username" required>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" required>
     </div>
     <div class="form-group">
         <label for="name">Họ tên</label>
-        <input type="text" class="form-control"  placeholder="Username" name="name">
+        <input type="text" class="form-control"  placeholder="Username" name="name" required>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
     </div>
     <div class="form-group">
         <label for="phone">Số điện thoại</label>
-        <input type="tel" class="form-control"  placeholder="Số điện thoại" name="phone" pattern="(\+84|0)\d{9,10}" required>
+        <input type="tel" class="form-control"  placeholder="Số điện thoại" name="phone" pattern="(\+84|0)\d{9,10}">
     </div>
     <div class="form-group">
         <label for="address">Địa chỉ</label>
@@ -33,7 +37,7 @@
     </div>
     <div class="form-group">
         <label for="formFile" class="form-label">Hình ảnh</label>
-        <img id="imageUser" src="#" alt="user image" class="img-thumbnail"/>
+        <img id="imageUser" src="#" alt="user image" hidden class="img-thumbnail"/>
         <input class="form-control" type="file" id="formFile" name="imageupload" onchange="readURL(this);">
     </div>
     <select class="form-select" aria-label="Default select example" name="position">

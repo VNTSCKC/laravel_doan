@@ -35,14 +35,11 @@ Route::get('/dang-xuat',[AccountController::class,'dangXuat'])->middleware('auth
 ///////////////////////////////////////////////////////
 
 
-//Quên mật khẩu 
-Route::get('/quen-mat-khau',[AccountController::class,'quenMatkhau'])->name('quen-mat-khau')->middleware('guest');
-Route::post('/quen-mat-khau',[AccountController::class,'xulyQuenmatkhau'])->name('xu-ly-quen-mat-khau');
-Route::get('/lay-mat-khau/{account}/{token_password}',[AccountController::class,'layMatkhau'])->name('lay-mat-khau')->middleware('guest');
-Route::post('/lay-mat-khau/{account}',[AccountController::class,'xylylayMatkhau'])->name('xu-ly-lay-mat-khau');
-
 
 Route::get('/admin/user/danh-sach',[AccountController::class,"index"]);
+Route::get('/admin/user/getlistaccounts',[AccountController::class,"getData"])->name('users.datatable');
+
+
 Route::get('/admin/user/chi-tiet/{id}',[AccountController::class,"show"])->name('chi-tiet-tai-khoan');
 Route::get('/admin/user/them-moi',[AccountController::class,"create"])->name('them-moi-nguoi-dung');
 
@@ -53,6 +50,7 @@ Route::get('/admin/user/xoa/{id}',[AccountController::class,"destroy"]);
 
 Route::prefix('admin/item/catalogue')->group(function () {
     Route::get('danh-sach',[CatalogueController::class,"index"]);
+    Route::get('danh-sach/getlistcatalogue',[CatalogueController::class,"getData"])->name('catalogue.datatable');
     Route::get('them-moi',[CatalogueController::class,"create"])->name('them-moi-danh-muc-tim-do');
     Route::post('them-moi',[CatalogueController::class,"store"])->name('xu-li-them-moi-danh-muc-tim-do');
     Route::get('cap-nhat/{id}',[CatalogueController::class,"edit"])->name('cap-nhat-danh-muc-tim-do');
@@ -63,6 +61,7 @@ Route::prefix('admin/item/catalogue')->group(function () {
 
 Route::prefix('admin/post')->group(function () {
     Route::get('danh-sach',[PostController::class,"index"]);
+    Route::get('danh-sach/getlistpost',[PostController::class,"getData"])->name('post.datatable');
     Route::get('them-moi',[PostController::class,"create"])->name('them-moi-bai-dang');
     Route::post('them-moi',[PostController::class,"store"])->name('xu-li-them-moi-bai-dang');
     Route::get('cap-nhat/{id}',[PostController::class,"edit"])->name('cap-nhat-bai-dang');
@@ -73,6 +72,7 @@ Route::prefix('admin/post')->group(function () {
 
 Route::prefix('admin/type-post')->group(function () {
     Route::get('danh-sach',[TypePostController::class,"index"]);
+    Route::get('danh-sach/getlistypepost',[TypePostController::class,"getData"])->name('typepost.datatable');
     Route::get('them-moi',[TypePostController::class,"create"])->name('them-moi-loai-bai-dang');
     Route::post('them-moi',[TypePostController::class,"store"])->name('xu-li-them-moi-loai-bai-dang');
     Route::get('cap-nhat/{id}',[TypePostController::class,"edit"])->name('cap-nhat-loai-bai-dang');
@@ -84,6 +84,7 @@ Route::prefix('admin/type-post')->group(function () {
 
 Route::prefix('admin/news-cast')->group(function () {
     Route::get('danh-sach/{name}',[NewsCastController::class,"index"]);
+    Route::get('danh-sach/{name}/getlistnewscast',[NewsCastController::class,"getData"])->name('newscast.datatable');
     Route::get('them-moi',[NewsCastController::class,"create"])->name('them-moi-ban-tin');
     Route::post('them-moi',[NewsCastController::class,"store"])->name('xu-li-them-moi-ban-tin');
     Route::get('cap-nhat/{id}',[NewsCastController::class,"edit"])->name('cap-nhat-ban-tin');
@@ -94,6 +95,7 @@ Route::prefix('admin/news-cast')->group(function () {
 
 Route::prefix('admin/type-news-cast')->group(function () {
     Route::get('danh-sach',[TypeNewsCastController::class,"index"]);
+    Route::get('danh-sach/getlisttypenewscast',[TypeNewsCastController::class,"getData"])->name('typenewscast.datatable');
     Route::get('them-moi',[TypeNewsCastController::class,"create"])->name('them-moi-loai-ban-tin');
     Route::post('them-moi',[TypeNewsCastController::class,"store"])->name('xu-li-them-moi-loai-ban-tin');
     Route::get('cap-nhat/{id}',[TypeNewsCastController::class,"edit"])->name('cap-nhat-loai-ban-tin');
@@ -106,8 +108,12 @@ Route::prefix('user')->group(function(){
     Route::get('trang-chu',[UserController::class,'index'])->name('trang-chu-nguoi-dung')->middleware('auth');// Đây nè
     Route::get('dang-bai',[UserController::class,'createpost'])->name('dang-bai');
     Route::post('dang-bai',[UserController::class,'storepost'])->name('xu-li-dang-bai');
+    Route::post('sua-bai-dang/{post}',[UserController::class,'editPost'])->name('cap-nhat-bai-dang-cua-nguoi-dung');
+    Route::post('update-post/{post}',[UserController::class,'updatePost'])->name('xu-li-cap-nhat-bai-dang-cua-nguoi-dung');
+    Route::post('delete-post/{post}',[UserController::class,'destroyPost'])->name('xoa-bai-dang-cua-nguoi-dung');
     Route::get('profile-update/{id}',[UserController::class,"edit"])->name('cap-nhat-thong-tin-user');
     Route::post('profile-update/{id}',[UserController::class,"update"])->name('xu-li-cap-nhat-thong-tin-user');
+    Route::post('follow-post/{post}',[UserController::class,"follow"])->name('theo-doi-bai-dang');
 });
 
 

@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Account;
 use App\Models\TypePost;
 use App\Models\Catalogue;
+use Yajra\Datatables\Datatables;
 
 class PostController extends Controller
 {
@@ -17,8 +18,37 @@ class PostController extends Controller
      */
     public function index()
     {
-        $listPost=Post::where('type_id','1')->orWhere('type_id','2')->get();
-        return view('admin.post.post',['listPost'=>$listPost]);
+        return view('admin.post.post');
+    }
+    public function getData(){
+        $posts=Post::where('type_id','1')->orWhere('type_id','2')->get();
+        return Datatables::of($posts)
+        ->addIndexColumn()
+        ->addColumn('action',function($post){
+            return '<a class="btn btn-info" href="'.route('chi-tiet-bai-dang',$post->id).'">Chi tiết</a>
+            <a class="btn btn-secondary" href="'.route('cap-nhat-bai-dang',$post->id).'">Sửa</a>
+            <a class="btn btn-danger" href="/admin/post/xoa/'.$post->id.'">Xóa</a>';
+        })
+        ->editColumn('title',function($post){
+            return $post->title;
+        })
+        ->editColumn('datetime',function($post){
+            return $post->created_at;
+        })
+        ->editColumn('user_post',function($post){
+            return $post->nguoiDang->name;
+        })
+        ->editColumn('type',function($post){
+            return $post->loaiBaiDang->name;
+        })
+        ->editColumn('catalogue',function($post){
+            return $post->loaiDo->name;
+        })
+        ->editColumn('address',function($post){
+            return $post->location;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
     }
     /**
      * Show the form for creating a new resource.

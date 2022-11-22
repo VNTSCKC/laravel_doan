@@ -7263,7 +7263,7 @@ a.with-smedia {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
-    width: 350px;
+    width: 100px;
 }
 .barcode > figure > img {
     border: 6px solid #fff;
@@ -7324,7 +7324,6 @@ a.with-smedia {
 
 .big-ad > figure {
     margin-bottom: 50px;
-    width: 400px;
 }
 
 .big-ad > h1 {

@@ -28,16 +28,16 @@
                 	<div class="row">
                         <div class="col-lg-8">
                             <div class="big-ad">
-                                <figure><img src="images/logo.png" alt=""></figure>
+                                <figure><img src="images/logo2.png" alt=""></figure>
                                 <h1>Welcome to the ChaoWeb</h1>
-                                <div class="barcode" style="width:600px" >
-                                    <figure><img src="images/resources/ChaoWeb.png"  alt=""></figure>
+                                <div class="barcode">
+                                    <figure><img src="images/resources/Barcode.jpg" alt=""></figure>
                                 </div>
                             </div>
                         </div>
 
 
-                        
+
 
 
                         <div class="col-lg-4">
@@ -72,34 +72,28 @@
                                 {{session('fail_verify_account')}}
                                 </div>
                                 @endif
-                                @if(session('forget_password'))
-                                <div class="alert alert-warning">
-                                    {{session('forget_password')}}
-                                    </div>
-                                @endif
                                 <div class="form-title">
-                                    <i></i>Đăng Nhập
-                                    <span><h3>Tìm Đồ Thất Lạc</h3></span>
+                                    <i class="fa fa-key"></i>login
+                                    <span>Tìm đồ thất lạc .</span>
                                 </div>
 
                                 <form class="we-form" action ="{{route('xu-ly-dang-nhap')}}" method="post">
                                   @csrf
 
-                                    <input type="text" placeholder="Username" name = "username" class= " @error('username') is-invalid @enderror " required>
+                                    <input type="text" placeholder="Username" name = "username" class= " @error('username') is-invalid @enderror " >
                                     @error('username')
                                     <span style="color: red;">{{ $message }}</span>
                                     @enderror
 
 
 
-                                    <input type="password" placeholder="Password" name ="password" class= " @error('password') is-invalid @enderror " required>
-                                    <br>
+                                    <input type="password" placeholder="Password" name ="password" class= " @error('password') is-invalid @enderror " >
                                     @error('password')
                                     <span style="color: red;">{{ $message }}</span>
                                     @enderror
 
                                     <button type="submit" data-ripple="">Đăng nhập</button>
-                                    <a class="forgot underline" href="/quen-mat-khau" title="">Quên mật khẩu</a>
+                                    <a class="forgot underline" href="#" title="">Quên mật khẩu</a>
                                 </form>
                                 <span> <a class="we-account underline" href="/dang-ky" title="">Đăng ký</a></span>
                             </div>

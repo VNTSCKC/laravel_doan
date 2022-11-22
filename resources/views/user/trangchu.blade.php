@@ -1,4 +1,9 @@
 @extends('layouts.user')
+@section('css')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endsection
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -93,7 +98,11 @@
                             <p class="alert alert-success">{{session('success_create_post')}}</p>
                             @endif
                             <figure>
-                                <img src="{{asset('user/images/resources/admin.jpg')}}" alt="">
+                                @if (Auth::user()->image)
+                                <img style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
+                                @else
+                                <img style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/avt.png" alt="">
+                                @endif
                             </figure>
                             <div class="newpst-input">
                                 <p style="margin-left: 10px; margin-top:10px;">Bài đăng tìm đồ/ nhặt đồ</p>
@@ -127,24 +136,62 @@
                             <div class="user-post">
                                 <div class="friend-info">
                                     <figure>
+
                                         <img src="{{ URL::to('/') }}/images/UserImages/{{$post->nguoiDang->image}}" alt="">
                                     </figure>
                                     <div class="friend-name">
                                         <div class="more">
                                             <div class="more-post-optns"><i class="ti-more-alt"></i>
                                                 <ul>
-                                                    <li><i class="fa fa-pencil-square-o"></i>Edit Post</li>
-                                                    <li><i class="fa fa-trash-o"></i>Delete Post</li>
+                                                    @if ($post->nguoiDang->username==Session::get('username'))
+                                                    <form action="{{route('cap-nhat-bai-dang-cua-nguoi-dung',['post'=>$post->id])}}" method="post">
+                                                        @csrf
+                                                        <li><i class="fa fa-pencil-square-o"></i>
+                                                            <input type="submit" value="Sửa bài viết" class="border-0" style="background-color: transparent">
+                                                            </li>
+                                                    </form>
+                                                    <form action="{{route('xoa-bai-dang-cua-nguoi-dung',['post'=>$post->id])}}" method="post" class="delete-post">
+                                                        @csrf
+                                                        <li><i class="fa fa-trash-o"></i>
+                                                            <input type="submit" value="Xóa bài viết" class="border-0" style="background-color: transparent">
+                                                            </li>
+                                                    </form>
+
+                                                    @endif
                                                     <li class="bad-report"><i class="fa fa-flag"></i>Report Post</li>
                                                     <li><i class="fa fa-address-card-o"></i>Boost This Post</li>
                                                     <li><i class="fa fa-clock-o"></i>Schedule Post</li>
-                                                    <li><i class="fa fa-wpexplorer"></i>Select as featured</li>
-                                                    <li><i class="fa fa-bell-slash-o"></i>Turn off Notifications</li>
+                                                    @if ($post->nguoiDang->username!=Session::get('username'))
+                                                    @php
+                                                        $flag=false;
+                                                        foreach ($listPostFollow as $postFollow){
+                                                            if ($postFollow->post_id==$post->id){
+                                                                $flag=true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if($flag==false){
+                                                            echo '<li>
+                                                            <form action="'.route('theo-doi-bai-dang',$post->id).'" method="post" class="follow-post">
+                                                                <input type="hidden" name="_token" id="token" value="'. csrf_token() .'">
+                                                                <i class="fa fa-wpexplorer"></i>
+                                                                <input type="submit" value="Theo dỗi bài viết" class="border-0" style="background-color: transparent">
+                                                            </form>
+                                                            </li>';
+                                                        }
+                                                    @endphp
+                                                    @endif
+
+
+
                                                 </ul>
                                             </div>
                                         </div>
                                         <ins><a href="time-line.html" title="">{{$post->nguoiDang->name}}</a> {{$post->loaiBaiDang->name}}/{{$post->loaiDo->name}}</ins>
                                         <span><i class="fa fa-globe"></i> Ngày đăng: {{$post->created_at}}</span>
+                                        @if($post->updated_at!=null&&$post->created_at!=$post->updated_at)
+                                            <span></i> Đã chỉnh sửa</span>
+                                        @endif
                                     </div>
                                     <div class="post-meta">
                                         <h1>{{$post->title}}</h1>
@@ -227,36 +274,91 @@
                         @endforeach
                     </div>
                 </div><!-- centerl meta -->
-                <div class="col-lg-3">
-                    <aside class="sidebar static right">
-                        <div class="widget">
-                            <h4 class="widget-title">Trang Cá Nhân</h4>
-                            <div class="your-page">
-                                <figure>
-                                    <a href="#" title=""><img src="{{asset('user/images/resources/friend-avatar9.jpg')}}" alt=""></a>
-                                </figure>
-                                <div class="page-meta">
-                                    <a href="#" title="" class="underline">Họ tên</a>
-                                    <span><i class="ti-comment"></i><a href="insight.html" title="">Tin nhắn <em>9</em></a></span>
-                                </div>
-                                <ul class="page-publishes ">
-                                    <li>
-                                        <span><i class="ti-pencil-alt"></i>Thông tin cá nhân</span>
-                                    </li>
-                                    <li>
-                                        <span><i class="ti-camera"></i>Ảnh đại diện</span>
-                                    </li>
+                            {{-- <div class="col-lg-3">
+                                <aside class="sidebar static right">
+                                    <div class="widget">
+                                        <h4 class="widget-title">Trang Cá Nhân</h4>
+                                        <div class="your-page">
+                                            <figure>
 
-                                </ul>
+                                                <a href="#" title=""><img src="{{asset('user/images/resources/friend-avatar9.jpg')}}" alt=""></a>
+                                            </figure>
+                                            <div class="page-meta">
+                                                <a href="#" title="" class="underline">Họ tên</a>
+                                                <span><i class="ti-comment"></i><a href="insight.html" title="">Tin nhắn <em>9</em></a></span>
+                                            </div>
+                                            <ul class="page-publishes ">
+                                                <li>
+                                                    <span><i class="ti-pencil-alt"></i>Thông tin cá nhân</span>
+                                                </li>
+                                                <li>
+                                                    <span><i class="ti-camera"></i>Ảnh đại diện</span>
+                                                </li>
 
-                            </div>
-                        </div><!-- page like widget -->
+                                            </ul>
+
+                                        </div>
+                                    </div><!-- page like widget -->
 
 
 
-                    </aside>
-                </div><!-- sidebar -->
+                                </aside>
+                            </div><!-- sidebar --> --}}
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+
+<script>
+    $(document).ready(function(){
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
+    $('form.delete-post').submit(function(e){
+        e.preventDefault(e);
+        var frmAction=this.action;
+        Swal.fire({
+        title: 'Bạn có muốn xóa bài viết?',
+        text: "Bài viết sẽ không thể khôi phục",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng, xóa nó!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+        $.post(frmAction);
+        Swal.fire(
+        'Đã xóa',
+        'Bài viết của bạn đã được xóa',
+        'Hoàn tất'
+        )
+        location.reload(true);
+        }
+        })
+        return false;
+    })
+    $("form.follow-post").submit( function(e){
+        e.preventDefault(e);
+        var frmAction=this.action;
+        $(this).hide();
+        Swal.fire({
+        position: 'top-end',
+        icon: 'Hoàn tất',
+        title: 'Theo dỗi bài đăng thành công',
+        showConfirmButton: false,
+        timer: 1500
+        })
+        $.post(frmAction);
+        return false;
+    })
+})
+</script>
+<script>
+
+</script>
 @endsection

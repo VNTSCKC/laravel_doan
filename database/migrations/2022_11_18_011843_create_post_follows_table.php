@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Modify extends Migration
+class CreatePostFollowsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class Modify extends Migration
      */
     public function up()
     {
-        Schema::table('account', function (Blueprint $table) {
-            //
-            $table->string('token_password')->nullable();
+        Schema::create('post_follow', function (Blueprint $table) {
+            $table->id();
+            $table->integer('post_id');
+            $table->integer('account_id');
+            $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
@@ -26,8 +29,6 @@ class Modify extends Migration
      */
     public function down()
     {
-        Schema::table('account', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('post_follow');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Catalogue;
+use Yajra\Datatables\Datatables;
+
 
 class CatalogueController extends Controller
 {
@@ -16,6 +18,19 @@ class CatalogueController extends Controller
     {
         $listCatalogue=Catalogue::all();
         return view('admin.item.catalogue.catalogue',['listCatelogue'=>$listCatalogue]);
+    }
+    public function getData(){
+        $catalogues=Catalogue::all();
+        return Datatables::of($catalogues)
+        ->addIndexColumn()
+        ->addColumn('action',function($catalogue){
+            return '<td><a class="btn btn-info" href="'.route('chi-tiet-danh-muc-tim-do',$catalogue->id).'">Chi tiết</a></td>
+            <td><a class="btn btn-secondary" href="'.route('cap-nhat-danh-muc-tim-do',$catalogue->id).'">Sửa</a></td>
+            <td><a class="btn btn-danger" href="/admin/item/catalogue/xoa/'.$catalogue->id.'">Xóa</a></td>';
+        })
+        ->editColumn('name',function($catalogue){
+            return $catalogue->name;
+        })->make(true);
     }
 
     /**

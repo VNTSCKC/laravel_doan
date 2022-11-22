@@ -516,8 +516,13 @@
             </li>
         </ul>
         <div class="user-img">
-            <h5>Jack Carter</h5>
-            <img src="{{asset('user/images/resources/admin.jpg')}}" alt="">
+            <h5>{{Auth::user()->name}}</h5>
+            @if (Auth::user()->image)
+            <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
+            @else
+            <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/avt.png" alt="">
+            @endif
+
             <span class="status f-online"></span>
             <div class="user-setting">
                 <span class="seting-title">Chat setting <a href="#" title="">see all</a></span>
@@ -529,7 +534,7 @@
                 <span class="seting-title">User setting <a href="#" title="">see all</a></span>
                 <ul class="log-out">
                     <li><a href="about.html" title=""><i class="ti-user"></i> view profile</a></li>
-                    <li><a href="setting.html" title=""><i class="ti-pencil-alt"></i>edit profile</a></li>
+                    <li><a href="profile-update/{{Auth::user()->id}}" title=""><i class="ti-pencil-alt"></i>edit profile</a></li>
                     <li><a href="#" title=""><i class="ti-target"></i>activity log</a></li>
                     <li><a href="setting.html" title=""><i class="ti-settings"></i>account setting</a></li>
                     <li><a href="/dang-xuat" title=""><i class="ti-power-off"></i>đăng xuất</a></li>

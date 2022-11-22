@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('css')
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
 @if (session('success_add'))
 <div class="alert alert-success">
@@ -17,15 +20,15 @@
 @endif
         <a class="btn btn-success" href="{{route('them-moi-danh-muc-tim-do')}}">Thêm mới</a>
       <h4 class="card-title">Danh mục tìm đồ</h4>
-      <table class="table ">
+      <table class="table " id="catalogue-table">
         <thead class="table-dark">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">STT</th>
             <th scope="col">Tên danh mục</th>
-            <th scope="col" colspan="3">Chức năng</th>
+            <th scope="col" >Chức năng</th>
           </tr>
         </thead>
-        <tbody>
+        {{-- <tbody>
             @foreach ($listCatelogue as $catalogue)
             <tr>
                 <th scope="row">{{$catalogue->id}}</th>
@@ -35,6 +38,27 @@
                 <td><a class="btn btn-danger" href="/admin/item/catalogue/xoa/{{$catalogue->id}}">Xóa</a></td>
               </tr>
             @endforeach
-        </tbody>
+        </tbody> --}}
       </table>
+@endsection
+@section('js')
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script>
+    $(function() {
+        $('#catalogue-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!!route('catalogue.datatable')!!}',
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex',},
+                { data: 'name', name: 'name' },
+                {data:'action', name: 'action'}
+            ]
+        });
+    });
+</script>
 @endsection

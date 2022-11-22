@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+
 @section('content')
 
 <form action="{{route('xu-li-them-moi-loai-ban-tin')}}" method="post">
