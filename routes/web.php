@@ -113,7 +113,9 @@ Route::prefix('user')->group(function(){
     Route::post('delete-post/{post}',[UserController::class,'destroyPost'])->name('xoa-bai-dang-cua-nguoi-dung');
     Route::get('profile-update/{id}',[UserController::class,"edit"])->name('cap-nhat-thong-tin-user');
     Route::post('profile-update/{id}',[UserController::class,"update"])->name('xu-li-cap-nhat-thong-tin-user');
-    Route::post('follow-post/{post}',[UserController::class,"follow"])->name('theo-doi-bai-dang');
+    Route::post('follow-post',[UserController::class,"follow"])->name('theo-doi-bai-dang');
+    // Route::post('report-post/{post}',[UserController::class,"report"])->name('bao-cao-bai-dang');
+    Route::post('report-post',[UserController::class,"report"])->name('bao-cao-bai-dang');
 });
 
 

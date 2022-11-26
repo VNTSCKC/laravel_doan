@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('css')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
 @endsection
 @section('content')
 @if (session('success_add'))
@@ -29,7 +30,6 @@
         <th scope="col">Loại bài đăng</th>
         <th scope="col">Danh mục</th>
         <th scope="col">Ngày đăng</th>
-        <th scope="col">Địa điểm nhặt(mất)</th>
         <th scope="col">Chức năng</th>
         </tr>
     </thead>
@@ -68,7 +68,6 @@
                 { data: 'type', name: 'type'},
                 { data: 'catalogue', name: 'catalogue' },
                 { data: 'datetime', name: 'datetime' },
-                { data: 'address', name: 'address', },
                 { data:'action', name:'action'}
             ]
         });

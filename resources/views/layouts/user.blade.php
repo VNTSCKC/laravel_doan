@@ -43,17 +43,29 @@
     @include('user.blocks.menu')
     @include('user.blocks.main')
 
+
 	<script src="{{asset('user/js/main.min.js')}}"></script>
-	<script src="{{asset('user/js/jquery-stories.js')}}"></script>
+	{{-- <script src="{{asset('user/js/jquery-stories.js')}}"></script> --}}
 	<script src="{{asset('user/js/toast-notificatons.js')}}"></script>
-	<script src="../../../cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script><!-- For timeline slide show -->
+	{{-- <script src="../../../cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script><!-- For timeline slide show --> --}}
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script><!-- for location picker map -->
 	<script src="{{asset('user/js/locationpicker.jquery.js')}}"></script><!-- for loaction picker map -->
 	<script src="{{asset('user/js/map-init.js')}}"></script><!-- map initilasition -->
 	{{-- <script src="{{asset('user/js/page-tourintro.js')}}"></script>
 	<script src="{{asset('user/js/page-tour-init.js')}}"></script> --}}
 	<script src="{{asset('user/js/script.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+
+            }
+            });
+        })
+    </script>
     @yield('js')
+
 	{{-- <script>
 		jQuery(document).ready(function($) {
 

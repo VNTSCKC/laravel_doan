@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Post;
 use App\Models\Catalogue;
 use App\Models\TypePost;
+use App\Models\Report;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\PostFollow;
 
@@ -19,12 +21,23 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function follow(Post $post,Request $request){
+    public function follow(Request $request){
 
-        $account=Account::where('username',Session::get('username'))->first();
-        if(PostFollow::create(['post_id'=>$post->id,'account_id'=>$account->id])){
+        if($request->type==1){
+            if(PostFollow::create(['post_id'=>$request->follow_post_id,'account_id'=>Auth::user()->id])){
+                return true;
+            }
+        }
+        else{
+            $postFollow=PostFollow::where([
+                ['post_id','=',$request->follow_post_id],
+                ['account_id','=',Auth::user()->id],
+                ])->first();
+            $postFollow->delete();
+            $postFollow->save();
             return true;
         }
+
     }
     public function index()
     {
@@ -135,6 +148,11 @@ class UserController extends Controller
             $account->save();
             return redirect()->route('trang-chu-nguoi-dung');
             }
+    }
+    public function report(Request $request){
+
+        if(Report::create(['post_id'=>$request->report_id,'account_id'=>Auth::user()->id,'content'=>$request->content]))
+            return true;
     }
 
     /**

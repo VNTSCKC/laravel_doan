@@ -32,6 +32,7 @@ class NewsCastController extends Controller
         if($type=="tin-tuc"){
             $newsCasts=NewsCast::where('type_id','2')->get();
         }
+
         return Datatables::of($newsCasts)
         ->addIndexColumn()
         ->addColumn('action',function($newsCast){
@@ -46,6 +47,7 @@ class NewsCastController extends Controller
             return $newsCast->created_at;
         })
         ->editColumn('user_post',function($newsCast){
+
             return $newsCast->nguoiDang->name;
         })
         ->editColumn('type',function($newsCast){

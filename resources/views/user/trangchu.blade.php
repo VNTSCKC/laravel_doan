@@ -1,8 +1,9 @@
 @extends('layouts.user')
 @section('css')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 @endsection
 @section('content')
     <div class="row">
@@ -12,15 +13,16 @@
                     <aside class="sidebar static left">
                         <div class="widget">
                             <div class="weather-widget low-opacity bluesh">
-                                <div class="bg-image" style="background-image: url({{asset('user/images/resources/weather.jpg')}})"></div>
+                                <div class="bg-image"
+                                    style="background-image: url({{ asset('user/images/resources/weather.jpg') }})"></div>
                                 <span class="refresh-content"><i class="fa fa-refresh"></i></span>
                                 <div class="weather-week">
                                     <div class="icon sun-shower">
-                                      <div class="cloud"></div>
-                                      <div class="sun">
-                                        <div class="rays"></div>
-                                      </div>
-                                      <div class="rain"></div>
+                                        <div class="cloud"></div>
+                                        <div class="sun">
+                                            <div class="rays"></div>
+                                        </div>
+                                        <div class="rain"></div>
                                     </div>
                                 </div>
                                 <div class="weather-infos">
@@ -73,9 +75,10 @@
                             </div><!-- Weather Widget -->
                         </div><!-- weather widget-->
                         <div class="widget whitish low-opacity">
-                            <div style="background-image: url({{asset('user/images/resources/dob2.png')}})" class="bg-image"></div>
+                            <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
+                                class="bg-image"></div>
                             <div class="dob-head">
-                                <img src="{{asset('user/images/resources/sug-page-5.jpg')}}" alt="">
+                                <img src="{{ asset('user/images/resources/sug-page-5.jpg') }}" alt="">
                                 <span>22nd Birthday</span>
                                 <div class="dob">
                                     <i>19</i>
@@ -83,7 +86,8 @@
                                 </div>
                             </div>
                             <div class="dob-meta">
-                                <figure><img src="{{asset('user/images/resources/dob-cake.gif')}}" alt=""></figure>
+                                <figure><img src="{{ asset('user/images/resources/dob-cake.gif') }}" alt="">
+                                </figure>
                                 <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
                                 <p>leave a message with your best wishes on his profile.</p>
                             </div>
@@ -95,13 +99,16 @@
                         <span class="create-post">Tạo Bài Đăng</span>
                         <div class="new-postbox">
                             @if (session('success_create_post'))
-                            <p class="alert alert-success">{{session('success_create_post')}}</p>
+                                <p class="alert alert-success">{{ session('success_create_post') }}</p>
                             @endif
                             <figure>
                                 @if (Auth::user()->image)
-                                <img style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
+                                    <img style="width:50px; height:50px; object-fit:cover;"
+                                        src="{{ url('/') }}/images/UserImages/{{ Auth::user()->image }}"
+                                        alt="">
                                 @else
-                                <img style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/avt.png" alt="">
+                                    <img style="width:50px; height:50px; object-fit:cover;"
+                                        src="{{ url('/') }}/images/UserImages/avt.png" alt="">
                                 @endif
                             </figure>
                             <div class="newpst-input">
@@ -116,89 +123,108 @@
                                 <div class="row">
 
                                     <div class="col-lg-6">
-                                          <label class="control-label">Lat :</label>
-                                          <input type="text" class="" id="us3-lat" />
+                                        <label class="control-label">Lat :</label>
+                                        <input type="text" class="" id="us3-lat" />
                                     </div>
                                     <div class="col-lg-6">
-                                          <label>Long :</label>
-                                          <input type="text" class="" id="us3-lon" />
+                                        <label>Long :</label>
+                                        <input type="text" class="" id="us3-lon" />
                                     </div>
                                 </div>
-                                  <!-- map -->
-                                  <div id="us3"></div>
+                                <!-- map -->
+                                <div id="us3"></div>
                             </div>
                         </div>
                     </div><!-- add post new box -->
 
                     <div class="loadMore">
-                        @foreach ($listPost as $post )
-                        <div class="central-meta item">
-                            <div class="user-post">
-                                <div class="friend-info">
-                                    <figure>
+                        @foreach ($listPost as $post)
+                            <div class="central-meta item">
+                                <div class="user-post">
+                                    <div class="friend-info">
+                                        <figure>
+                                            @if( !$post->nguoiDang->image)
+                                                <img src="{{ URL::to('/') }}/images/UserImages/avt.png"
+                                                alt="">
 
-                                        <img src="{{ URL::to('/') }}/images/UserImages/{{$post->nguoiDang->image}}" alt="">
-                                    </figure>
-                                    <div class="friend-name">
-                                        <div class="more">
-                                            <div class="more-post-optns"><i class="ti-more-alt"></i>
-                                                <ul>
-                                                    @if ($post->nguoiDang->username==Session::get('username'))
-                                                    <form action="{{route('cap-nhat-bai-dang-cua-nguoi-dung',['post'=>$post->id])}}" method="post">
-                                                        @csrf
-                                                        <li><i class="fa fa-pencil-square-o"></i>
-                                                            <input type="submit" value="Sửa bài viết" class="border-0" style="background-color: transparent">
-                                                            </li>
-                                                    </form>
-                                                    <form action="{{route('xoa-bai-dang-cua-nguoi-dung',['post'=>$post->id])}}" method="post" class="delete-post">
-                                                        @csrf
-                                                        <li><i class="fa fa-trash-o"></i>
-                                                            <input type="submit" value="Xóa bài viết" class="border-0" style="background-color: transparent">
-                                                            </li>
-                                                    </form>
-
-                                                    @endif
-                                                    <li class="bad-report"><i class="fa fa-flag"></i>Report Post</li>
-                                                    <li><i class="fa fa-address-card-o"></i>Boost This Post</li>
-                                                    <li><i class="fa fa-clock-o"></i>Schedule Post</li>
-                                                    @if ($post->nguoiDang->username!=Session::get('username'))
-                                                    @php
-                                                        $flag=false;
-                                                        foreach ($listPostFollow as $postFollow){
-                                                            if ($postFollow->post_id==$post->id){
-                                                                $flag=true;
-                                                                break;
-                                                            }
-                                                        }
-                                                        if($flag==false){
-                                                            echo '<li>
-                                                            <form action="'.route('theo-doi-bai-dang',$post->id).'" method="post" class="follow-post">
-                                                                <input type="hidden" name="_token" id="token" value="'. csrf_token() .'">
-                                                                <i class="fa fa-wpexplorer"></i>
-                                                                <input type="submit" value="Theo dỗi bài viết" class="border-0" style="background-color: transparent">
+                                            @else
+                                            <img src="{{ URL::to('/') }}/images/UserImages/{{ $post->nguoiDang->image }}"
+                                                alt="">
+                                         @endif
+                                        </figure>
+                                        <div class="friend-name">
+                                            <div class="more">
+                                                <div class="more-post-optns"><i class="ti-more-alt"></i>
+                                                    <ul>
+                                                        @if ($post->nguoiDang->username == Session::get('username'))
+                                                            <form
+                                                                action="{{ route('cap-nhat-bai-dang-cua-nguoi-dung', ['post' => $post->id]) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <li><i class="fa fa-pencil-square-o"></i>
+                                                                    <input type="submit" value="Sửa bài viết"
+                                                                        class="border-0"
+                                                                        style="background-color: transparent">
+                                                                </li>
                                                             </form>
-                                                            </li>';
-                                                        }
-                                                    @endphp
-                                                    @endif
+                                                            <form
+                                                                action="{{ route('xoa-bai-dang-cua-nguoi-dung', ['post' => $post->id]) }}"
+                                                                method="post" class="delete-post">
+                                                                @csrf
+                                                                <li>
+                                                                    <i class="fa fa-trash-o"></i>
+                                                                    <input id="{{$post->id}}" type="submit" value="Xóa bài viết"
+                                                                        class="border-0"
+                                                                        style="background-color: transparent">
+                                                                </li>
+                                                            </form>
+                                                        @endif
+                                                        <li>    <i class="fa fa-flag"></i>   <input  id="post_{{$post->id}}" type="button" value="Báo cáo bài viết"
+                                                            class="border-0 report-post"
+                                                            style="background-color: transparent"></li>
+                                                        @if ($post->nguoiDang->username != Auth::user()->username)
+                                                            @php
+
+                                                                $flag = false;
+                                                                foreach ($listPostFollow as $postFollow) {
+                                                                    if ($postFollow->post_id == $post->id) {
+                                                                        $flag = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                if ($flag == false) {
+                                                                    echo '
+                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Theo dỗi bài viết"
+                                                            class="border-0 follow-post"
+                                                            style="background-color: transparent"></li>';
+                                                                }
+                                                                else{
+                                                                    echo '
+                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Hủy theo dỗi"
+                                                            class="border-0 follow-post"
+                                                            style="background-color: transparent"></li>';
+                                                                }
+                                                            @endphp
+                                                        @endif
 
 
 
-                                                </ul>
+                                                    </ul>
+                                                </div>
                                             </div>
+                                            <ins><a href="time-line.html" title="">{{ $post->nguoiDang->name }}</a>
+                                                {{ $post->loaiBaiDang->name }}/{{ $post->loaiDo->name }}</ins>
+                                            <span><i class="fa fa-globe"></i> Ngày đăng: {{ $post->created_at }}</span>
+                                            @if ($post->updated_at != null && $post->created_at != $post->updated_at)
+                                                <span></i> Đã chỉnh sửa</span>
+                                            @endif
                                         </div>
-                                        <ins><a href="time-line.html" title="">{{$post->nguoiDang->name}}</a> {{$post->loaiBaiDang->name}}/{{$post->loaiDo->name}}</ins>
-                                        <span><i class="fa fa-globe"></i> Ngày đăng: {{$post->created_at}}</span>
-                                        @if($post->updated_at!=null&&$post->created_at!=$post->updated_at)
-                                            <span></i> Đã chỉnh sửa</span>
-                                        @endif
-                                    </div>
-                                    <div class="post-meta">
-                                        <h1>{{$post->title}}</h1>
-                                        <p>
-                                            {!!$post->content!!}
-                                        </p>
-                                        {{-- <figure>
+                                        <div class="post-meta" style="text-transform: none;">
+                                            <h1>{{ $post->title }}</h1>
+                                            <p>
+                                                {!! $post->content !!}
+                                            </p>
+                                            {{-- <figure>
                                             <div class="img-bunch">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -237,7 +263,7 @@
                                             </div>
 
                                         </figure> --}}
-                                        {{-- <div class="we-video-info">
+                                            {{-- <div class="we-video-info">
                                             <ul>
                                                 <li>
                                                     <span class="views" title="views">
@@ -263,18 +289,18 @@
                                             </ul>
 
                                         </div> --}}
+                                        </div>
+
                                     </div>
 
                                 </div>
 
-                            </div>
 
-
-                        </div><!-- album post -->
+                            </div><!-- album post -->
                         @endforeach
                     </div>
                 </div><!-- centerl meta -->
-                            {{-- <div class="col-lg-3">
+                {{-- <div class="col-lg-3">
                                 <aside class="sidebar static right">
                                     <div class="widget">
                                         <h4 class="widget-title">Trang Cá Nhân</h4>
@@ -307,58 +333,130 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('js')
+    <script>
 
-<script>
-    $(document).ready(function(){
-    $.ajaxSetup({
-    headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-    });
+        $(document).ready(function() {
 
-    $('form.delete-post').submit(function(e){
-        e.preventDefault(e);
-        var frmAction=this.action;
-        Swal.fire({
-        title: 'Bạn có muốn xóa bài viết?',
-        text: "Bài viết sẽ không thể khôi phục",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Vâng, xóa nó!'
-        }).then((result) => {
-        if (result.isConfirmed) {
-        $.post(frmAction);
-        Swal.fire(
-        'Đã xóa',
-        'Bài viết của bạn đã được xóa',
-        'Hoàn tất'
-        )
-        location.reload(true);
-        }
+            $('form.delete-post').submit(function(e) {
+                e.preventDefault(e);
+                var frmAction = this.action;
+                Swal.fire({
+                    title: 'Bạn có muốn xóa bài viết?',
+                    text: "Bài viết sẽ không thể khôi phục",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Vâng, xóa nó!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(frmAction);
+                        Swal.fire(
+                            'Đã xóa',
+                            'Bài viết của bạn đã được xóa',
+                            'Hoàn tất'
+                        )
+                        location.reload(true);
+                    }
+                })
+                return false;
+            })
+            $(".follow-post").click(function(e) {
+
+                if($(this).val()=="Theo dỗi bài viết"){
+                    $follow_post_id=$(this).attr('id').slice(12);
+                    $(this).val("Hủy theo dỗi")
+                    alert($follow_post_id);
+                    $type=1;
+                    $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
+                        Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Theo dỗi bài đăng thành công',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    });
+                    return false;
+                }else{
+                    $follow_post_id=$(this).attr('id').slice(12);
+                    $(this).val("Theo dỗi bài viết")
+                    alert($follow_post_id);
+                    $type=0;
+                    $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
+                        Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Đã hủy theo dỗi bài đăng',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    });
+                    return false;
+                }
+
+            })
+            $(".report-post").click(async function(e) {
+
+                const {
+                    value: text
+                } = await Swal.fire({
+                    input: 'textarea',
+                    inputLabel: 'Báo cáo',
+                    inputPlaceholder: 'Nhập nội dung báo cáo dô',
+                    inputAttributes: {
+                        'aria-label': 'Type your message here'
+                    },
+                    showCancelButton: true
+                })
+
+                if (text) {
+                    var $report_id=$(this).attr('id').slice(5);
+                    var $content=text;
+                    Swal.fire({
+                    title: 'Chắc chắn báo cáo chưa??',
+                    text: "Báo cáo rồi admin biết bạn là ai đó!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Rồi!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.post('/user/report-post',{report_id:$report_id,content:$content,_token:'{{csrf_token()}}',}).done(function(){
+                            Swal.fire({
+                        title: 'Báo cáo thành công',
+                        showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                        }
+                        }).fail(function(){
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi rồi',
+                            text: 'Bị lỗi gì đó!',
+
+                            })
+                        })
+
+                        });
+                    }
+                    })
+
+                    ;
+                    // $.ajax({
+                    // method: "POST",
+                    // url: "/user/report-post",
+                    // data: { report_id: $report_id,content: $content }
+                    // })
+                }
+            })
         })
-        return false;
-    })
-    $("form.follow-post").submit( function(e){
-        e.preventDefault(e);
-        var frmAction=this.action;
-        $(this).hide();
-        Swal.fire({
-        position: 'top-end',
-        icon: 'Hoàn tất',
-        title: 'Theo dỗi bài đăng thành công',
-        showConfirmButton: false,
-        timer: 1500
-        })
-        $.post(frmAction);
-        return false;
-    })
-})
-</script>
-<script>
-
-</script>
+    </script>
 @endsection

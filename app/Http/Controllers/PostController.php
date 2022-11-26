@@ -44,9 +44,6 @@ class PostController extends Controller
         ->editColumn('catalogue',function($post){
             return $post->loaiDo->name;
         })
-        ->editColumn('address',function($post){
-            return $post->location;
-        })
         ->rawColumns(['action'])
         ->make(true);
     }
