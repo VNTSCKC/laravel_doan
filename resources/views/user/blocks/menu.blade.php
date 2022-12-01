@@ -9,9 +9,8 @@
             </span>
         </div>
         <div class="top-search">
-            <form method="post" class="">
-                <input type="text" placeholder="Search People, Pages, Groups etc">
-                <button data-ripple><i class="ti-search"></i></button>
+            <form method="get" id="tim-kiem-form" action="/user/tim-kiem">
+                <input id="tim-kiem" type="text" placeholder="Search People, Pages, Groups etc" name="txtSearch">
             </form>
         </div>
         <div class="page-name">

@@ -21,6 +21,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+        $listPost=Post::orderBy('created_at','desc')->get();
+        return view('user.home',['listPost'=>$listPost]);
+    }
+    public function searchpost(Request $request){
+
+        $listPost=Post::where('title','like','%'.$request->txtSearch.'%')->orderBy('created_at','desc')->get();
+
+        $listPostFollow=PostFollow::where('account_id',Auth::user()->id)->get();
+        return view('user.search',['listPost'=>$listPost,'listPostFollow'=>$listPostFollow]);
+    }
     public function follow(Request $request){
 
         if($request->type==1){

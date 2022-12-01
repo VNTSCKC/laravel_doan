@@ -224,22 +224,46 @@ class AccountController extends Controller
     public function xulyDangNhap(dangnhapRequest $request)
     {
         $credentials = $request->only('username','password');// Lấy giá trị của input username và password
+        //$isAdmin=Account::where('username',$request->username)->first()->position;
+        // if($isAdmin=="admin"){
 
+        //     if(Auth::guard('admin')->attempt($credentials)) // Kiểm tra chứng thực người dùng
+        //     {
+        //         $account=Account::where('username',$request->username)->first();
+
+        //         if($account->status==0){
+        //             Auth::guard('admin')->logout();
+        //             return redirect()->route('dang-nhap')->with('verify_account','Tài khoản của bạn chưa được kích hoạt, Vui lòng <strong><a href="/revefiry-account/'.$account->id.'/'.$account->token.'">Click vào đây</a> </strong>để kích hoạt tài khoản qua gmail');
+        //         }
+        //         Session::put('username',$request->username);
+
+        //         return redirect('/admin/dashboard');
+        //     }
+        //     return redirect()->back()->with("error","Đăng nhập không thành công");
+        // }
         if(Auth::attempt($credentials)) // Kiểm tra chứng thực người dùng
         {
             $account=Account::where('username',$request->username)->first();
+
             if($account->status==0){
                 Auth::logout();
                 return redirect()->route('dang-nhap')->with('verify_account','Tài khoản của bạn chưa được kích hoạt, Vui lòng <strong><a href="/revefiry-account/'.$account->id.'/'.$account->token.'">Click vào đây</a> </strong>để kích hoạt tài khoản qua gmail');
             }
             Session::put('username',$request->username);
+            if($account->position=='admin'){
+                return redirect('/admin/dashboard');
+            }
             return redirect()->route('trang-chu-nguoi-dung');
         }
         return redirect()->back()->with("error","Đăng nhập không thành công");
     }
     public function dangXuat()
     {
+
+
+        //Auth::guard('admin')->logout();
         Auth::logout();
         return redirect('/dang-nhap');
+
     }
 }

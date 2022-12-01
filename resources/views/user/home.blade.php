@@ -1,10 +1,9 @@
-@extends('layouts.user')
+@extends('layouts.home')
 @section('css')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
 @endsection
 @section('content')
     <div class="row">
@@ -103,21 +102,21 @@
                                 <p class="alert alert-success">{{ session('success_create_post') }}</p>
                             @endif
                             <figure>
-                                @if (Auth::user()->image)
+                                {{-- @if (Auth::user()->image)
                                     <img style="width:50px; height:50px; object-fit:cover;"
                                         src="{{ url('/') }}/images/UserImages/{{ Auth::user()->image }}"
                                         alt="">
                                 @else
                                     <img style="width:50px; height:50px; object-fit:cover;"
                                         src="{{ url('/') }}/images/UserImages/avt.png" alt="">
-                                @endif
+                                @endif --}}
                             </figure>
                             <div class="newpst-input">
                                 <p style="margin-left: 10px; margin-top:10px;">Bài đăng tìm đồ/ nhặt đồ</p>
 
                             </div>
                             <div class="attachments">
-                                <a href="/user/dang-bai" class="post-btn">Đăng bài</a>
+                                <a href="/dang-nhap" class="post-btn">Đăng bài</a>
                             </div>
                             <div class="add-location-post">
                                 <span>Drag map point to selected area</span>
@@ -138,7 +137,7 @@
                         </div>
                     </div><!-- add post new box -->
 
-                    <div class="loadMore" id="bai-dang">
+                    <div class="loadMore">
                         @foreach ($listPost as $post)
                             <div class="central-meta item">
                                 <div class="user-post">
@@ -155,9 +154,9 @@
                                         </figure>
                                         <div class="friend-name">
                                             <div class="more">
-                                                <div class="more-post-optns"><i class="ti-more-alt"></i>
+                                                {{-- <div class="more-post-optns"><i class="ti-more-alt"></i>
                                                     <ul>
-                                                        @if ($post->nguoiDang->username == Session::get('username'))
+                                                        {{-- @if ($post->nguoiDang->username == Session::get('username'))
                                                             <form
                                                                 action="{{ route('cap-nhat-bai-dang-cua-nguoi-dung', ['post' => $post->id]) }}"
                                                                 method="post">
@@ -211,7 +210,7 @@
 
 
                                                     </ul>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <ins><a href="time-line.html" title="">{{ $post->nguoiDang->name }}</a>
                                                 {{ $post->loaiBaiDang->name }}/{{ $post->loaiDo->name }}</ins>
@@ -340,27 +339,6 @@
     <script>
 
         $(document).ready(function() {
-            // $('#tim-kiem-form').submit(function(e){
-            //     e.preventDefault(e);
-            //     return false;
-            // });
-            // $("#tim-kiem").change(function(){
-
-            //     $txtSearch=$(this).val();
-
-            //     if($txtSearch!=null){
-
-            //         $.get('/user/tim-kiem/'.$txtSearch,"",function(data){
-            //             console.log(data);
-            //         $('#bai-dang').html(data);
-            //         alert('abc');
-
-            //         });
-            //     }
-
-            //     return false;
-            // });
-
 
             $('form.delete-post').submit(function(e) {
                 e.preventDefault(e);
