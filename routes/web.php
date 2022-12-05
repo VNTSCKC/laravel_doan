@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TypePostController;
 use App\Http\Controllers\TypeNewsCastController;
 use App\Http\Controllers\NewsCastController;
+use App\Http\Controllers\MessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,6 +127,9 @@ Route::prefix('user')->middleware(['auth','role'])->group(function(){
     Route::post('follow-post',[UserController::class,"follow"])->name('theo-doi-bai-dang');
     // Route::post('report-post/{post}',[UserController::class,"report"])->name('bao-cao-bai-dang');
     Route::post('report-post',[UserController::class,"report"])->name('bao-cao-bai-dang');
+    Route::get('message',[MessageController::class,"index"])->name('trang-chu-nhan-tin');
+    Route::get('message/{room}',[MessageController::class,"show"])->name('message.detail');
+    Route::post('message/send',[MessageController::class,"create"])->name('message.create');
 });
 
 

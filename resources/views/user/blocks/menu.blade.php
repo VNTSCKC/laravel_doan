@@ -196,7 +196,7 @@
                 </div>
             </li>
             <li>
-                <a href="#" title="Messages" data-ripple=""><i class="fa fa-commenting"></i><em class="bg-blue">9</em></a>
+                <a href="/user/message" title="Messages" data-ripple=""><i class="fa fa-commenting"></i><em class="bg-blue">9</em></a>
                 <div class="dropdowns">
                     <span>5 New Messages <a href="#" title="">Mark all as read</a></span>
                     <ul class="drops-menu">
