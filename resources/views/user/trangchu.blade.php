@@ -20,9 +20,9 @@
                                 </div>
                                 <div class="weather-infos">
                                     <span class="weather-tem">25</span>
-                                    <h3>Cloudy Skyes<i>Sicklervilte, New Jersey</i></h3>
+                                    <h3>Cloudy Skyes<i>Tp.Ho Chi Minh, VietNam</i></h3>
                                     <div class="weather-date skyblue-bg">
-                                        <span>MAY<strong>21</strong></span>
+                                        <span>Nov<strong>21</strong></span>
                                     </div>
                                 </div>
                                 <div class="monthly-weather">
@@ -67,7 +67,7 @@
 
                             </div><!-- Weather Widget -->
                         </div><!-- weather widget-->
-                        <div class="widget whitish low-opacity">
+                        <!-- <div class="widget whitish low-opacity">
                             <div style="background-image: url({{asset('user/images/resources/dob2.png')}})" class="bg-image"></div>
                             <div class="dob-head">
                                 <img src="{{asset('user/images/resources/sug-page-5.jpg')}}" alt="">
@@ -82,7 +82,7 @@
                                 <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
                                 <p>leave a message with your best wishes on his profile.</p>
                             </div>
-                        </div><!-- birthday widget -->
+                        </div>birthday widget -->
                     </aside>
                 </div><!-- sidebar -->
                 <div class="col-lg-6">
@@ -93,14 +93,14 @@
                             <p class="alert alert-success">{{session('success_create_post')}}</p>
                             @endif
                             <figure>
-                                <img src="{{asset('user/images/resources/admin.jpg')}}" alt="">
+                                <img style="width:35px; height:35px;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
                             </figure>
                             <div class="newpst-input">
                                 <p style="margin-left: 10px; margin-top:10px;">Bài đăng tìm đồ/ nhặt đồ</p>
 
                             </div>
                             <div class="attachments">
-                                <a href="/user/dang-bai" class="post-btn">Đăng bài</a>
+                                <a href="/user/dang-bai" class="btn btn-info">Đăng bài</a>
                             </div>
                             <div class="add-location-post">
                                 <span>Drag map point to selected area</span>
@@ -233,15 +233,15 @@
                             <h4 class="widget-title">Trang Cá Nhân</h4>
                             <div class="your-page">
                                 <figure>
-                                    <a href="#" title=""><img src="{{asset('user/images/resources/friend-avatar9.jpg')}}" alt=""></a>
+                                    <a href="#" title=""><img src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" style="width:40px; height:40px;" alt=""></a>
                                 </figure>
                                 <div class="page-meta">
-                                    <a href="#" title="" class="underline">Họ tên</a>
+                                    <a href="#" title="" class="underline">{{Auth::user()->name}}</a>
                                     <span><i class="ti-comment"></i><a href="insight.html" title="">Tin nhắn <em>9</em></a></span>
                                 </div>
                                 <ul class="page-publishes ">
                                     <li>
-                                        <span><i class="ti-pencil-alt"></i>Thông tin cá nhân</span>
+                                        <span><i class="ti-pencil-alt"></i> <a href="profile-user/{{Auth::user()->id}}">Thông tin cá nhân</a></span>
                                     </li>
                                     <li>
                                         <span><i class="ti-camera"></i>Ảnh đại diện</span>

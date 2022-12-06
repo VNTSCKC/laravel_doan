@@ -69,7 +69,7 @@
                         <div class="p-t-10">
                             <button class="btn btn--pill btn--green" type="submit">Đăng ký</button>
                             <span> <a style="text-decoration: none" class="btn btn--pill btn--green"  href="/dang-nhap" title="">Đăng nhập</a></span>
-                        </div>  
+                        </div>
                     </form>
                 </div>
 

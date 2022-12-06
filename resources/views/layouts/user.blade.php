@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-	<title>Pitnik Social Network Toolkit</title>
+	<title>Website Tìm đồ thất lạc</title>
     @yield('css')
     <link rel="icon" href="{{asset('user/images/fav.png')}}" type="image/png" sizes="16x16">
 
@@ -22,15 +22,16 @@
 <body>
 <div class="wavy-wraper">
 		<div class="wavy">
-		  <span style="--i:1;">p</span>
-		  <span style="--i:2;">i</span>
-		  <span style="--i:3;">t</span>
-		  <span style="--i:4;">n</span>
-		  <span style="--i:5;">i</span>
-		  <span style="--i:6;">k</span>
-		  <span style="--i:7;">.</span>
+		  <span style="--i:1;">c</span>
+		  <span style="--i:2;">h</span>
+		  <span style="--i:3;">a</span>
+		  <span style="--i:4;">o</span>
+		  <span style="--i:5;">w</span>
+		  <span style="--i:6;">e</span>
+		  <span style="--i:7;">b</span>
 		  <span style="--i:8;">.</span>
 		  <span style="--i:9;">.</span>
+		  <span style="--i:10;">.</span>
 		</div>
 	</div>
 <div class="theme-layout">
@@ -76,7 +77,7 @@
 
 		if ($.isFunction($.fn.toast)) {
 			$.toast({
-				heading: 'Welcome To Pitnik',
+				heading: 'Welcome To ChaoWeb',
 				text: '',
 				showHideTransition: 'slide',
 				icon: 'success',

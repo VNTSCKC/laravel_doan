@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+<h2>THÊM MỚI LOẠI BẢN TIN</h2>
 
 <form action="{{route('xu-li-them-moi-loai-ban-tin')}}" method="post">
     @csrf

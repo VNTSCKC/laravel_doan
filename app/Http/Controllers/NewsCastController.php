@@ -7,6 +7,8 @@ use App\Models\NewsCast;
 use App\Models\Account;
 use App\Models\TypeNewsCast;
 
+use Yajra\Datatables\Datatables;
+
 class NewsCastController extends Controller
 {
     /**
@@ -17,13 +19,40 @@ class NewsCastController extends Controller
     public function index(String $loainewscast)
     {
         if($loainewscast=="meo-tim-do"){
-        $listNewsCast=NewsCast::where('type_id','1')->get();
-        return view('admin.newscast.newscast',['listNewsCast'=>$listNewsCast]);
+            return view('admin.newscast.newscast',['type'=>'meo-tim-do']);
         }
         if($loainewscast=="tin-tuc"){
-            $listNewsCast=NewsCast::where('type_id','2')->get();
-            return view('admin.newscast.newscast',['listNewsCast'=>$listNewsCast]);
-            }
+            return view('admin.newscast.newscast',['type'=>'tin-tuc']);
+        }
+    }
+    public function getData(String $type){
+        if($type=="meo-tim-do"){
+            $newsCasts=NewsCast::where('type_id','1')->get();
+        }
+        if($type=="tin-tuc"){
+            $newsCasts=NewsCast::where('type_id','2')->get();
+        }
+        return Datatables::of($newsCasts)
+        ->addIndexColumn()
+        ->addColumn('action',function($newsCast){
+            return '<a class="btn btn-info" href="'.route('chi-tiet-ban-tin',$newsCast->id).'">Chi tiết</a>
+            <a class="btn btn-secondary" href="'.route('cap-nhat-ban-tin',$newsCast->id).'">Sửa</a>
+            <a class="btn btn-danger" href="/admin/news-cast/xoa/'.$newsCast->id.'">Xóa</a>';
+        })
+        ->editColumn('title',function($newsCast){
+            return $newsCast->title;
+        })
+        ->editColumn('datetime',function($newsCast){
+            return $newsCast->created_at;
+        })
+        ->editColumn('user_post',function($newsCast){
+            return $newsCast->nguoiDang->name;
+        })
+        ->editColumn('type',function($newsCast){
+            return $newsCast->loaiBanTin->name;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
     }
     /**
      * Show the form for creating a new resource.

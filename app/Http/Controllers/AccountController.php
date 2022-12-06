@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Requests\dangkyRequest;
 use App\Http\Requests\dangnhapRequest;
-use App\Http\Requests\quenMatKhauRequest;
-use App\Http\Requests\passwordRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Cache;
+use Carbon;
 use Session;
 use Str;
+use Yajra\Datatables\Datatables;
 
 class AccountController extends Controller
 {
@@ -27,7 +28,40 @@ class AccountController extends Controller
         $listAccount=Account::all();
         return view('admin.user.user',['listAccount'=>$listAccount]);
     }
-
+    public function getData(){
+        $accounts=Account::all();
+        return Datatables::of($accounts)
+        ->addIndexColumn()
+        ->addColumn('last_seen',function($account){
+            if($account->last_seen)
+                return Carbon\Carbon::parse($account->last_seen)->diffForHumans();
+            else
+                return 'Chưa đăng nhập lần nào';
+        })
+        ->addColumn('login_status',function($account){
+            if (Cache::has('user-is-online-'.$account->id))
+                    return '<span class="text-success">Online</span>';
+            else
+                    return '<span class="text-secondary">Offline</span>';
+        })
+        ->addColumn('action',function($account){
+            return '<a class="btn btn-info" href="'.route('chi-tiet-tai-khoan',$account->id).'">Chi tiết</a>
+            <a class="btn btn-secondary" href="'.route('cap-nhat-tai-khoan',$account->id).'">Sửa</a>
+            <a class="btn btn-danger" href="/admin/user/xoa/'.$account->id.'">Xóa</a>';
+        })
+        ->editColumn('username',function($account){
+            return $account->username;
+        })
+        ->editColumn('email',function($account){
+            return $account->email;
+        })
+        ->editColumn('name',function($account){
+            return $account->name;
+        })
+        ->editColumn('phone',function($account){
+            return $account->phone;
+        })->rawColumns(['action','last_seen','login_status'])->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -79,7 +113,6 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-
         $account=Account::find($id);
         if($account==null){
             echo "ERROR";
@@ -137,18 +170,20 @@ class AccountController extends Controller
         $account->save();
         return redirect('/admin/user/danh-sach')->with('success_delete','Xóa tài khoản thành công');
     }
-    public function reVerifyAccount(Account $account,$token){
-
-        $account->update(['token'=>Str::random(40)]);
-        Mail::send('emails.activeaccount', compact('account'), function ($message) use($account) {
-            $message->to($account->email, $account->name);
-            $message->subject('Tìm đồ xịn - Xác nhận tài khoản');
-        });
-        return redirect()->route('dang-nhap')->with('success_reverify_account',
-        'Đã gửi thư xác nhận qua Gmail, Vui lòng vào email để xác nhận');
-        
+    public function indexMain()
+    {
+        return view('user.trangchu');
     }
-   
+    public function reVerifyAccount(Account $account,$token){
+        if($account->token==$token){
+            $account->update(['token'=>Str::random(40)]);
+            Mail::send('emails.activeaccount', compact('account'), function ($message) use($account) {
+                $message->to($account->email, $account->name);
+                $message->subject('Tìm đồ xịn - Xác nhận tài khoản');
+            });
+            return redirect()->route('dang-nhap')->with('success_reverify_account','Đã gửi thư xác nhận qua Gmail, Vui lòng vào email để xác nhận');
+        }
+    }
     public function dangKy()
     {
         return view('dangky');
@@ -182,62 +217,6 @@ class AccountController extends Controller
         }
         return redirect()->route('dang-nhap')->with('fail_verify_account','Mã kích hoạt không hợp lệ');
     }
-
-
-    //-----
-
-
-    public function quenMatKhau()
-    {
-        return view('password.quenmatkhau');
-    }
-    public function layMatkhau(Account $account , $token_password)
-    {
-        // dd($token_password);
-        if($account->token_password == $token_password)
-        {
-            return view('password.datlaimatkhau',['account'=>$account,'token_password'=>$token_password]);
-        }
-        
-        return abort(404);
-    }
-
-    
-    public function xulyQuenmatkhau(quenMatkhauRequest $request)
-    {
-       
-       
-        $account = Account::where('email',$request->email)->first();
-        if($account !=null) {
-            $account->update(['token_password'=>Str::random(40)]);
-        Mail::send('emails.check_email_password', compact('account'), function($email) use($account) 
-        {
-            
-            $email->to($account->email, $account->name);
-            $email->subject('Tìm đồ xịn - Đặt lại mật khẩu');  
-           
-        });
-        return redirect()->route('dang-nhap')->with('forget_password','Vui lòng kiểm tra Email để đặt lại mật khẩu'); 
-        }
-        return redirect()->route('quen-mat-khau')->with('error','Email không tồn tại');
-         
-    }
-   
-    
-    public function xylylayMatkhau(Request $request, Account $account )
-    {
-        
-        $password_change =Hash::make($request->password);
-        $account->update(['password'=>$password_change,'token_password'=>null]);
-        return redirect()->route('dang-nhap')->with('success_forget_password','Đặt lại mật khẩu thành công');
-    }
-
-
-
-
-    //-------
-
-
     public function dangNhap()
     {
         return view('dangnhap');

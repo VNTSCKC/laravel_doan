@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 @section('content')
+<h2>CẬP NHẬT THÔNG TIN BẢN TIN</h2>
+
 <form action="{{route('xu-li-cap-nhat-loai-ban-tin',['id'=>$typeNewsCast->id])}}" method="post">
     @csrf
     <div class="form-group">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TypePost;
+use Yajra\Datatables\Datatables;
+use App\Http\Requests\typePostRequest;
 
 class TypePostController extends Controller
 {
@@ -17,7 +19,19 @@ class TypePostController extends Controller
         $listTypePost=TypePost::all();
         return view('admin.typepost.typepost',['listTypePost'=>$listTypePost]);
     }
-
+    public function getData(){
+        $typePosts=TypePost::all();
+        return Datatables::of($typePosts)
+        ->addIndexColumn()
+        ->addColumn('action',function($typePost){
+            return '<td><a class="btn btn-info" href="'.route('chi-tiet-loai-bai-dang',$typePost->id).'">Chi tiết</a></td>
+            <td><a class="btn btn-secondary" href="'.route('cap-nhat-loai-bai-dang',$typePost->id).'">Sửa</a></td>
+            <td><a class="btn btn-danger" href="/admin/type-post/xoa/'.$typePost->id.'">Xóa</a></td>';
+        })
+        ->editColumn('name',function($typePost){
+            return $typePost->name;
+        })->rawColumns(['action'])->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +48,7 @@ class TypePostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(typePostRequest $request)
     {
         if(TypePost::create($request->all())){
             return redirect('admin/type-post/danh-sach')->with('success_add','Thêm loại bài đăng thành công');
@@ -72,7 +86,7 @@ class TypePostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(typePostRequest $request, $id)
     {
         $typePost=TypePost::find($id);
         if($typePost->update($request->all())){

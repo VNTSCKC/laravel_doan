@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TypeNewsCast;
+use Yajra\Datatables\Datatables;
+
 
 class TypeNewsCastController extends Controller
 {
@@ -17,7 +19,19 @@ class TypeNewsCastController extends Controller
         $listTypeNewsCast=TypeNewsCast::all();
         return view('admin.typenewscast.typenewscast',['listTypeNewsCast'=>$listTypeNewsCast]);
     }
-
+    public function getData(){
+        $typeNewsCasts=TypeNewsCast::all();
+        return Datatables::of($typeNewsCasts)
+        ->addIndexColumn()
+        ->addColumn('action',function($typeNewsCast){
+            return '<td><a class="btn btn-info" href="'.route('chi-tiet-loai-ban-tin',$typeNewsCast->id).'">Chi tiết</a></td>
+            <td><a class="btn btn-secondary" href="'.route('cap-nhat-loai-ban-tin',$typeNewsCast->id).'">Sửa</a></td>
+            <td><a class="btn btn-danger" href="/admin/type-news-cast/xoa/'.$typeNewsCast->id.'">Xóa</a></td>';
+        })
+        ->editColumn('name',function($typeNewsCast){
+            return $typeNewsCast->name;
+        })->rawColumns(['action'])->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *

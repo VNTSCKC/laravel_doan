@@ -4,15 +4,15 @@
     @csrf
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control"  placeholder="Username" name="username" value="{{$account->username}}">
+        <input type="text" class="form-control"  placeholder="Username" name="username" value="{{$account->username}}" required>
     </div>
     <div class="form-group">
         <label for="name">Họ tên</label>
-        <input type="text" class="form-control"  placeholder="Username" name="name" value="{{$account->name}}">
+        <input type="text" class="form-control"  placeholder="Username" name="name" value="{{$account->name}}" required>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{$account->email}}">
+        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{$account->email}}" required>
     </div>
     <div class="form-group">
         <label for="phone">Số điện thoại</label>

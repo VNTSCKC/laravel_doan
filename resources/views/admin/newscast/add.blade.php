@@ -13,10 +13,12 @@
 @endsection
 @endsection
 @section('content')
+<h2>FORM THÊM MỚI BẢN TIN</h2>
 <form action="{{route('xu-li-them-moi-ban-tin')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label for="account">Tài khoản đăng</label>
+        
         <select class="form-select" aria-label="select account" name="account_id">
             @foreach ($listAccount as $account)
             <option value="{{$account->id}}">{{$account->username}}</option>

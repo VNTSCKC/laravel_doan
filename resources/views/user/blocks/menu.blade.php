@@ -1,6 +1,6 @@
 <div class="topbar stick">
     <div class="logo">
-        <a title="" href="#"><img src="images/logo.png" alt=""></a>
+        <a title="" href="#"><img style="width:50px; height:50px;" src="{{asset('images/chao.jpg')}}" alt=""></a>
     </div>
     <div class="top-area">
         <div class="main-menu">
@@ -221,7 +221,7 @@
                                     <span class="status f-offline"></span>
                                 </figure>
                                 <div class="mesg-meta">
-                                    <h6>Jhon doe</h6>
+                                    <h6>Admin ChaoWeb</h6>
                                     <span><i class="ti-check"></i> We’ll have to check that at the office and see if the client is on board with</span>
                                     <i>2 min ago</i>
                                 </div>
@@ -516,8 +516,9 @@
             </li>
         </ul>
         <div class="user-img">
-            <h5>Jack Carter</h5>
-            <img src="{{asset('user/images/resources/admin.jpg')}}" alt="">
+        <h5>{{Auth::user()->name}}</h5>
+        
+            <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
             <span class="status f-online"></span>
             <div class="user-setting">
                 <span class="seting-title">Chat setting <a href="#" title="">see all</a></span>
@@ -529,7 +530,7 @@
                 <span class="seting-title">User setting <a href="#" title="">see all</a></span>
                 <ul class="log-out">
                     <li><a href="about.html" title=""><i class="ti-user"></i> view profile</a></li>
-                    <li><a href="setting.html" title=""><i class="ti-pencil-alt"></i>edit profile</a></li>
+                    <li><a href="profile-update/{{Auth::user()->id}}" title=""><i class="ti-pencil-alt"></i>edit profile</a></li>
                     <li><a href="#" title=""><i class="ti-target"></i>activity log</a></li>
                     <li><a href="setting.html" title=""><i class="ti-settings"></i>account setting</a></li>
                     <li><a href="/dang-xuat" title=""><i class="ti-power-off"></i>đăng xuất</a></li>

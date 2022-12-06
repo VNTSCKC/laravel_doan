@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class quenMatkhauRequest extends FormRequest
+class catalogueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,14 @@ class quenMatkhauRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required'
+            'name' => 'required'
+            //
         ];
     }
     public function messages()
     {
         return [
-            'email.required' => 'Không để trống tên đăng nhập',
+            'name.required' => 'Không được để trống Tên danh mục'
         ];
     }
 }

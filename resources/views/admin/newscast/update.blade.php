@@ -13,6 +13,8 @@
 @endsection
 @endsection
 @section('content')
+<h2>CẬP NHẬT THÔNG TIN BÀI ĐĂNG</h2>
+
 <form action="{{route('xu-li-cap-nhat-ban-tin',['id'=>$newsCast->id])}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">

@@ -10,30 +10,30 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 @endsection
 @section('content')
-<h2>CẬP NHẬT THÔNG TIN CÁ NHÂN </h2>
+<h2>THÔNG TIN CÁ NHÂN </h2>
 
 <div class="central-meta">
 
 <div class="row justify-content-evenly" style="display:flex; justify-content:center;">
 
 <div class="col-4">  
-        <form action="{{route('xu-li-cap-nhat-thong-tin-user',['id'=>$account->id])}}" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             @csrf
         <div class="form-group">
         <label style="font-size:20px; color:black; opacity:0.8" for="formFile" class="form-label">Ảnh đại diện</label>
         </br>
         <p>
         <img id="imageUser"  src="{{ url('/') }}/images/UserImages/{{$account->image}}" style="width: 200px; height: 200px;border-top-right-radius:50%; border-bottom-left-radius:50%; border-top-left-radius:50%; border-bottom-right-radius:50%;" alt="user image" class="img-thumbnail"/>
-        </p>
-        <input class="form-control" type="file" id="formFile" name="imageupload" onchange="readURL(this);">
+        <!-- </p>
+        <input class="form-control" type="file" id="formFile" name="imageupload" onchange="readURL(this);">-->
         </div>
 </div>
     <div class="col-4">
-    @if ($errors->any())
+    <!-- @if ($errors->any())
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">{{$error}}</div>
     @endforeach
-    @endif
+    @endif -->
 
             <div class="form-group">
                 <label style="font-size:20px; color:black; opacity:0.8" for="name">Họ tên</label>
@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label style="font-size:20px; color:black; opacity:0.8" for="email">Email</label>
-                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" readonly name="email" value="{{$account->email}}">
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" name="email" value="{{$account->email}}">
             </div>
             <div class="form-group">
                 <label style="font-size:20px; color:black; opacity:0.8" for="phone">Số điện thoại</label>
@@ -57,7 +57,7 @@
                 <input placeholder="Chọn ngày sinh" type="datetime-local" id="dateofbirth" class="form-control" name="dateofbirth" value="{{$account->dateofbirth}}">
             </div>
             
-            <button type="submit" class="btn btn-primary">Cập nhật</button>
+            <!-- <button type="submit" class="btn btn-primary">Cập nhật</button> -->
           
           <a href="{{route('trang-chu-nguoi-dung')}}" style="margin: 0px 20px 0 20px" class="btn btn-outline-primary">< Quay lại</a>
           </form>

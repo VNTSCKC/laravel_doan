@@ -9,6 +9,8 @@ use App\Models\Post;
 use App\Models\Catalogue;
 use App\Models\TypePost;
 use Session;
+use App\Http\Requests\accountRequest;
+use App\Http\Requests\userPostRequest;
 
 
 class UserController extends Controller
@@ -20,8 +22,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $listPost=Post::all();
-        return view('user.trangchu',['listPost'=>$listPost]);
+        //$listPost=Post::orderBy('created_at','desc')->get();
+        $listPost=Post::latest()->get();
+        $account=Account::where('username',Session::get('username'))->first();
+        
+        return view('user.trangchu',['listPost'=>$listPost,'account'=>$account]);
+    
     }
 
     public function createpost(){
@@ -29,7 +35,7 @@ class UserController extends Controller
         $listCatalogue=Catalogue::all();
         return view('user.createpost',['listTypePost'=>$listTypePost,'listCatalogue'=>$listCatalogue]);
     }
-    public function storepost(Request $request){
+    public function storepost(userPostRequest $request){
         $account=Account::where('username',Session::get('username'))->first();
         $request->merge(['account_id'=>$account->id]);
         if(Post::create($request->all())){
@@ -69,6 +75,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
+        $account=Account::find($id);
+        return view('user.profile_user',['account'=>$account]);
     }
 
     /**
@@ -93,19 +101,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(accountRequest $request, $id)
     {
+        // dd($request->input());
+        /*$request->validate([
+            'name'=>'required',
+            'phone'=>'nullable|between:9,13'
+        ]);*/
         //
         $account=Account::find($id);
-        $account->fill([
-            "name"=>$request->name,
-            "email"=>$request->email,
-            "phone"=>$request->phone,
-            "address"=>$request->address,
-            "dateofbirth"=>$request->dateofbirth
-        ]);
-        $account->save();
-        return redirect()->route('trang-chu-user');
+        if($request->has('imageupload')){
+            $file=$request->imageupload;
+            $file_name=time().".". $file_extension=$file->extension();
+            $file->move(public_path('images/UserImages'),$file_name);
+            $request->merge(['image'=>$file_name]);
+        }
+        if($account->update($request->all())){
+
+            $account->save();
+            return redirect()->route('trang-chu-nguoi-dung');
+            }
     }
 
     /**
