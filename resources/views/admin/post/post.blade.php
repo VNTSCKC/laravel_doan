@@ -1,7 +1,12 @@
 @extends('layouts.admin')
 @section('css')
+<<<<<<< HEAD
 
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+=======
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+>>>>>>> minh_hung
 @endsection
 @section('content')
 @if (session('success_add'))
@@ -21,9 +26,14 @@
 @endif
 
 <a href="/admin/post/them-moi" class="btn btn-success">Thêm mới</a>
+<<<<<<< HEAD
     <h4 class="card-title" style="margin: 10px 0 10px 0">Danh sách bài đăng</h4>
 
     <table class="table" id="post-table" >
+=======
+    <h4 class="card-title">Danh sách bài đăng</h4>
+    <table class="table" id="post-table">
+>>>>>>> minh_hung
     <thead class="table-dark">
         <tr>
         <th scope="col">STT</th>
@@ -31,7 +41,11 @@
         <th scope="col">Người đăng</th>
         <th scope="col">Loại bài đăng</th>
         <th scope="col">Danh mục</th>
+<<<<<<< HEAD
         
+=======
+        <th scope="col">Ngày đăng</th>
+>>>>>>> minh_hung
         <th scope="col">Chức năng</th>
         </tr>
     </thead>
@@ -71,6 +85,31 @@
                 { data: 'type', name: 'type' },
                 { data: 'catalogue', name: 'catalogue' },
                 
+                { data:'action', name:'action'}
+            ]
+        });
+    });
+</script>
+@endsection
+@section('js')
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script>
+    $(function() {
+        $('#post-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!!route('post.datatable')!!}',
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex',},
+                { data: 'title', name: 'title' },
+                { data: 'user_post', name: 'user_post' },
+                { data: 'type', name: 'type'},
+                { data: 'catalogue', name: 'catalogue' },
+                { data: 'datetime', name: 'datetime' },
                 { data:'action', name:'action'}
             ]
         });

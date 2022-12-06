@@ -16,6 +16,14 @@ class NewsCastController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function detail($type_id,$id){
+        $newsCast=NewsCast::where('type_id',$type_id)->where('id',$id)->first();
+        return view('user.chitietbantin',['newsCast'=>$newsCast]);
+    }
+    public function getAll($id){
+        $newsCasts=NewsCast::where('type_id',$id)->get();
+        return view('user.bantin',['newsCasts'=>$newsCasts]);
+    }
     public function index(String $loainewscast)
     {
         if($loainewscast=="meo-tim-do"){
@@ -32,6 +40,7 @@ class NewsCastController extends Controller
         if($type=="tin-tuc"){
             $newsCasts=NewsCast::where('type_id','2')->get();
         }
+
         return Datatables::of($newsCasts)
         ->addIndexColumn()
         ->addColumn('action',function($newsCast){
@@ -46,6 +55,7 @@ class NewsCastController extends Controller
             return $newsCast->created_at;
         })
         ->editColumn('user_post',function($newsCast){
+
             return $newsCast->nguoiDang->name;
         })
         ->editColumn('type',function($newsCast){

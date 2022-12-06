@@ -1,7 +1,11 @@
 
 @extends('layouts.admin')
 @section('css')
-@section('css')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
@@ -10,11 +14,15 @@
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-@endsection
+
 @endsection
 @section('content')
+<<<<<<< HEAD
 <h2>FORM THÊM MỚI BẢN TIN</h2>
 <form action="{{route('xu-li-them-moi-ban-tin')}}" method="post" enctype="multipart/form-data">
+=======
+<form action="{{route('xu-li-them-moi-ban-tin')}}" method="post" enctype="multipart/form-data" id="add-news-cast">
+>>>>>>> minh_hung
     @csrf
     <div class="form-group">
         <label for="account">Tài khoản đăng</label>
@@ -97,5 +105,32 @@
     });
 
 });
+</script>
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        $('#add-news-cast').submit(function(e){
+        e.preventDefault(e);
+        Swal.fire({
+        title: 'Bạn có muốn thêm bản tin?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Có',
+        denyButtonText: `Không `,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+        Swal.fire('Thêm bản tin thành công!', '', 'Hoàn tất').then((result)=>{
+        e.currentTarget.submit();})
+        } else if (result.isDenied) {
+        Swal.fire('Hủy đăng', '', 'Thông báo').then((result)=> window.location.replace("/admin/news-cast/meo-tim-do/danh-sach"));
+        }
+        })
+        })
+    })
 </script>
 @endsection

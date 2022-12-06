@@ -19,7 +19,11 @@
 </div>
 @endif
     <a class="btn btn-success" href="{{route('them-moi-loai-bai-dang')}}">Thêm mới</a>
+<<<<<<< HEAD
       <h4 class="card-title" style="margin: 10px 0 10px 0">Loại bài đăng</h4>
+=======
+      <h4 class="card-title">Loại bài đăng</h4>
+>>>>>>> minh_hung
       <table class="table " id="type-post-table">
         <thead class="table-dark">
           <tr>

@@ -1,6 +1,17 @@
 @extends('layouts.admin')
 @section('css')
+<<<<<<< HEAD
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+=======
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+>>>>>>> minh_hung
 @endsection
 @section('content')
 @if (session('success_add'))
@@ -64,7 +75,10 @@
       </table>
 @endsection
 @section('js')
+<<<<<<< HEAD
 
+=======
+>>>>>>> minh_hung
 <script src="https://code.jquery.com/jquery.js"></script>
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
@@ -89,4 +103,51 @@
         });
     });
 </script>
+<<<<<<< HEAD
+=======
+<script>
+    $(document).ready(function(){
+        $('#users-table tbody').on("click",".delete-account",function(e){
+            e.preventDefault(e);
+            var href=$(this).attr('href')
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: 'Bạn có chắc?',
+            text: "Tài khoản này sẽ bị xóa!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Chắc, xóa đi!',
+            cancelButtonText: 'Chưa, suy nghĩ đã!',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+            'Đã xóa!',
+            'Tài khoản đã được xóa.',
+            'Hoàn tất'
+            )
+
+            window.location.replace(href)
+            } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+            ) {
+            swalWithBootstrapButtons.fire(
+            'Đã hủy thao tác',
+            'Tài khoản còn nguyên :)',
+            'Lỗi'
+            )
+            }
+            })
+        })
+    })
+</script>
+>>>>>>> minh_hung
 @endsection

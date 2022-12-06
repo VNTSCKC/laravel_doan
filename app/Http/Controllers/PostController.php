@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Account;
 use App\Models\TypePost;
 use App\Models\Catalogue;
+use App\Models\Report;
 use Yajra\Datatables\Datatables;
 
 class PostController extends Controller
@@ -43,9 +44,6 @@ class PostController extends Controller
         })
         ->editColumn('catalogue',function($post){
             return $post->loaiDo->name;
-        })
-        ->editColumn('address',function($post){
-            return $post->location;
         })
         ->rawColumns(['action'])
         ->make(true);
@@ -86,7 +84,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post=Post::find($id);
-        return view('admin.post.detail',['post'=>$post]);
+        $reports=Report::where('post_id',$id)->offset(0)->limit(10)->get();
+        return view('admin.post.detail',['post'=>$post,'reports'=>$reports]);
     }
 
     /**
@@ -139,5 +138,11 @@ class PostController extends Controller
         $post->save();
         return redirect('admin/post/danh-sach')->with('success_delete','Xóa bài đăng thành công');
 
+    }
+    public function detail_report($id){
+        $report=Report::where('id',$id)->first();
+        return response()->json([
+            'content' => $report->content
+        ]);
     }
 }

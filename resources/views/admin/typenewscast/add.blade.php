@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+
 @section('content')
 <h2>THÊM MỚI LOẠI BẢN TIN</h2>
 

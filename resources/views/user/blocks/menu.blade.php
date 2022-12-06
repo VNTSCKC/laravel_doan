@@ -9,9 +9,8 @@
             </span>
         </div>
         <div class="top-search">
-            <form method="post" class="">
-                <input type="text" placeholder="Search People, Pages, Groups etc">
-                <button data-ripple><i class="ti-search"></i></button>
+            <form method="get" id="tim-kiem-form" action="/user/tim-kiem">
+                <input id="tim-kiem" type="text" placeholder="Search People, Pages, Groups etc" name="txtSearch">
             </form>
         </div>
         <div class="page-name">
@@ -19,6 +18,7 @@
          </div>
         <ul class="setting-area">
             <li><a href="#" title="Home" data-ripple=""><i class="fa fa-home"></i></a></li>
+<<<<<<< HEAD
             <li>
                 <a href="#" title="Friend Requests" data-ripple="">
                     <i class="fa fa-user"></i><em class="bg-red">5</em>
@@ -272,6 +272,14 @@
                     <a href="chat-messenger.html" title="" class="more-mesg">View All</a>
                 </div>
             </li>
+=======
+           
+
+
+                <a href="/user/message" title="Messages" data-ripple="" style="font-size: 20px; margin:0px 10px 0px 10px;"><i class="fa fa-commenting" style="color: #999; "></i></a>
+
+
+>>>>>>> minh_hung
             <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i><em>EN</em></a>
                 <div class="dropdowns languages">
                     <div data-gutter="10" class="row">
@@ -516,9 +524,19 @@
             </li>
         </ul>
         <div class="user-img">
+<<<<<<< HEAD
         <h5>{{Auth::user()->name}}</h5>
         
             <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
+=======
+            <h5>{{Auth::user()->name}}</h5>
+            @if (Auth::user()->image)
+            <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
+            @else
+            <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/avt.png" alt="">
+            @endif
+
+>>>>>>> minh_hung
             <span class="status f-online"></span>
             <div class="user-setting">
                 <span class="seting-title">Chat setting <a href="#" title="">see all</a></span>
@@ -555,7 +573,7 @@
                     <li><a href="classified.html" title="">Classified</a></li>
                     <li><a href="pitpoint.html" title="">PitPoint</a></li>
                     <li><a href="pittube.html" title="">Pittube</a></li>
-                    <li><a href="chat-messenger.html" title="">Messenger</a></li>
+                    <li><a href="/user/messgae" title="">Messenger</a></li>
                 </ul>
             </li>
             <li><a class="" href="#" title=""><i class="fa fa-film"></i> Pittube</a>
@@ -838,10 +856,11 @@
                 </a>
             </li>
             <li>
-                <a href="chat-messenger.html" title="Messages" data-toggle="tooltip" data-placement="right">
+                <a href="/user/message" title="Messages" data-toggle="tooltip" data-placement="right">
                     <i class="ti-comment-alt"></i>
                 </a>
             </li>
+
             <li>
                 <a href="notifications.html" title="Notification" data-toggle="tooltip" data-placement="right">
                     <i class="fa fa-bell-o"></i>
