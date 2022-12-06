@@ -101,6 +101,11 @@ Route::prefix('admin')->middleware(['auth','role'])->group(function(){
         Route::get('xoa/{id}',[TypeNewsCastController::class,"destroy"]);
     });
     Route::get('report/detail/{id}',[PostController::class,'detail_report']);
+    Route::prefix('message')->group(function(){
+        Route::get('room/{id}',[MessageController::class,'room'])->name('admin.message.room');
+        Route::get('room/detail/{id}',[MessageController::class,'detail'])->name('admin.message.detail');
+    });
+
 });
 
 

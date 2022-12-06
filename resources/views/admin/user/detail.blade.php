@@ -15,5 +15,6 @@
 @else
 <p>Trạng thái đăng bài: Không cho phép</p>
 @endif
+<a class="btn btn-primary" href="/admin/message/room/{{$account->id}}">Hộp thư</a>
 <a href="/admin/user/danh-sach">< Back</a>
 @endsection

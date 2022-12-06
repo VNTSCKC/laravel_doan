@@ -21,6 +21,27 @@ class MessageController extends Controller
         return view('message.message',['listRoomMessage'=>$listRoomMessage]);
     }
 
+    public function room($id){
+        $listRoomMessage=RoomMessage::where('first_user',$id)->orWhere('second_user',$id)->get();
+        $user=Account::find($id);
+        return view('admin.message.message',['listRoomMessage'=>$listRoomMessage,'account'=>$user]);
+    }
+    public function detail($id){
+        $listMessage=Message::where('room_id',$room->id)->get();
+        $listRoomMessage=RoomMessage::where('first_user',$id)->orWhere('second_user',$id)->get();
+        $user=Account::find($id);
+        if($room->first_user==$id){
+            // dd($room->second_user);
+
+            $account=Account::find($room->second_user);
+
+            return view('admin.message.message_detail',['room'=>$room,'listRoomMessage'=>$listRoomMessage,'listMessage'=>$listMessage,'receive_user'=>$account,'account'=>$user]);
+        }
+        else{
+            $account=Account::find($room->first_user);
+            return view('admin.message.message_detail',['room'=>$room,'listRoomMessage'=>$listRoomMessage,'listMessage'=>$listMessage,'receive_user'=>$account,'account'=>$user]);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
