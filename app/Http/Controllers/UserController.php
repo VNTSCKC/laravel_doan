@@ -10,6 +10,7 @@ use App\Models\Catalogue;
 use App\Models\TypePost;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
+use App\Models\NewsCast;
 use Session;
 use App\Models\PostFollow;
 
@@ -54,10 +55,11 @@ class UserController extends Controller
     public function index()
     {
         $account=Account::where('username',Session::get('username'))->first();
-
+        $news=NewsCast::where('type_id',2)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $tips=NewsCast::where('type_id',1)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
         $listPost=Post::orderBy('created_at','desc')->get();
         $listPostFollow=PostFollow::where('account_id',$account->id)->get();
-        return view('user.trangchu',['listPost'=>$listPost,'listPostFollow'=>$listPostFollow]);
+        return view('user.trangchu',['listPost'=>$listPost,'listPostFollow'=>$listPostFollow,'listNews'=>$news,'listTip'=>$tips]);
     }
 
     public function createpost(){

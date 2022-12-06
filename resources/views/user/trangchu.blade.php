@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
+    <link rel="stylesheet" href="{{asset('style.css')}}">
 @endsection
 @section('content')
     <div class="row">
@@ -93,6 +93,108 @@
                                 <p>leave a message with your best wishes on his profile.</p>
                             </div>
                         </div><!-- birthday widget -->
+                        <div class="widget  low-opacity">
+                            {{-- <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
+                                class="bg-image"></div>
+                            <div class="dob-head">
+                                <img src="{{ asset('user/images/resources/sug-page-5.jpg') }}" alt="">
+                                <span>22nd Birthday</span>
+                                <div class="dob">
+                                    <i>19</i>
+                                    <span>September</span>
+                                </div>
+                            </div>
+                            <div class="dob-meta">
+                                <figure><img src="{{ asset('user/images/resources/dob-cake.gif') }}" alt="">
+                                </figure>
+                                <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
+                                <p>leave a message with your best wishes on his profile.</p>
+                            </div> --}}
+                            <h2 style="margin-left: 10px">Tin tức</h2>
+                            @if($listNews)
+                            <div class="slideshow-container">
+                                @foreach ($listNews as $news)
+                                <div class="mySlides fade">
+
+                                    <img src="{{URL::to('/')}}/images/post/{{$news->image}}" style="width:100%; height:200px; object-fit:cover;">
+                                    <div class="text">{{$news->title}}</div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <script>
+                                let slideIndex = 0;
+                                showSlides();
+
+                                function showSlides() {
+                                let i;
+                                let slides = document.getElementsByClassName("mySlides");
+                                for (i = 0; i < slides.length; i++) {
+                                slides[i].style.display = "none";
+                                }
+                                slideIndex++;
+                                if (slideIndex > slides.length) {slideIndex = 1}
+                                slides[slideIndex-1].style.display = "block";
+                                setTimeout(showSlides, 2000); // Change image every 2 seconds
+                                }
+                        </script>
+                        <br>
+                        <a href="/news-cast/2" class="btn btn-info" style="margin:0px 0px 10px 10px">Xem tất cả</a>
+
+                        @else
+                        <p>Trống</p>
+                        @endif
+                        </div><!-- birthday widget -->
+                        <div class="widget  low-opacity">
+                            {{-- <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
+                                class="bg-image"></div>
+                            <div class="dob-head">
+                                <img src="{{ asset('user/images/resources/sug-page-5.jpg') }}" alt="">
+                                <span>22nd Birthday</span>
+                                <div class="dob">
+                                    <i>19</i>
+                                    <span>September</span>
+                                </div>
+                            </div>
+                            <div class="dob-meta">
+                                <figure><img src="{{ asset('user/images/resources/dob-cake.gif') }}" alt="">
+                                </figure>
+                                <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
+                                <p>leave a message with your best wishes on his profile.</p>
+                            </div> --}}
+                            <h2  style="margin-left: 10px">Mẹo tìm đồ</h2>
+                            @if($listTip)
+                            <div class="slideshow-container">
+                                @foreach ($listTip as $tip)
+                                <div class="mySlides-tip fade">
+                                    <img src="{{URL::to('/')}}/images/post/{{$tip->image}}" style="width:100%; height:200px; object-fit:cover;">
+                                    <div class="text">{{$tip->title}}</div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <script>
+                                let slideIndex_tip = 0;
+                                showSlides_tip();
+
+                                function showSlides_tip() {
+                                let i_tip;
+                                let slides_tip = document.getElementsByClassName("mySlides-tip");
+                                for (i = 0; i < slides_tip.length; i++) {
+                                    slides_tip[i].style.display = "none";
+                                }
+                                slideIndex_tip++;
+                                if (slideIndex_tip > slides_tip.length) {slideIndex_tip = 1}
+                                slides_tip[slideIndex_tip-1].style.display = "block";
+                                setTimeout(showSlides_tip, 2000); // Change image every 2 seconds
+                                }
+                        </script>
+                        <br>
+                        <a href="/news-cast/1" class="btn btn-info" style="margin:0px 0px 10px 10px">Xem tất cả</a>
+
+                        @else
+                        <p>Trống</p>
+                        @endif
+                        </div><!-- birthday widget -->
+
                     </aside>
                 </div><!-- sidebar -->
                 <div class="col-lg-6">

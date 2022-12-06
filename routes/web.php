@@ -9,6 +9,7 @@ use App\Http\Controllers\TypePostController;
 use App\Http\Controllers\TypeNewsCastController;
 use App\Http\Controllers\NewsCastController;
 use App\Http\Controllers\MessageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,6 +100,7 @@ Route::prefix('admin')->middleware(['auth','role'])->group(function(){
         Route::get('chi-tiet/{id}',[TypeNewsCastController::class,"show"])->name('chi-tiet-loai-ban-tin');
         Route::get('xoa/{id}',[TypeNewsCastController::class,"destroy"]);
     });
+    Route::get('report/detail/{id}',[PostController::class,'detail_report']);
 });
 
 
@@ -130,9 +132,11 @@ Route::prefix('user')->middleware(['auth','role'])->group(function(){
     Route::get('message',[MessageController::class,"index"])->name('trang-chu-nhan-tin');
     Route::get('message/{room}',[MessageController::class,"show"])->name('message.detail');
     Route::post('message/send',[MessageController::class,"create"])->name('message.create');
+
 });
 
-
+Route::get('/news-cast/{type_id}',[NewsCastController::class,'getAll'])->name('newscast.newscast');
+Route::get('/news-cast/detail/{type_id}/{id}',[NewsCastController::class,'detail'])->name('newscast.detail');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -19,7 +19,9 @@
     </div>
 
     <div class="position-relative">
+
         <div class="chat-messages p-4" id="list-message">
+            @if ($listMessage)
             @foreach ($listMessage as $message )
                 @if ($message->send_id==Auth::user()->id)
                 <div class="chat-message-right pb-4">
@@ -46,6 +48,10 @@
                 </div>
                 @endif
             @endforeach
+            @else
+
+            @endif
+
         </div>
     </div>
 
@@ -65,7 +71,7 @@
             if(data.send_id=={{Auth::user()->id}}){
                 $('#list-message').append('<div class="chat-message-right pb-4"> <div> <img src="{{URL::to('/') }}/images/UserImages/{{Auth::user()->image}}" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40"><div class="text-muted small text-nowrap mt-2">2:33 am</div></div><div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3"><div class="font-weight-bold mb-1">Bạn</div>'+data.content+'</div></div>')
             }else{
-                $('#list-message').append('<div class="chat-message-left pb-4"><div><img src="{{ URL::to('/') }}/images/UserImages/{{$receive_user->image}}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40"><div class="text-muted small text-nowrap mt-2">2:34 am</div></div><div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3"><div class="font-weight-bold mb-1">{{$message->nguoiGui->name}}</div>'+data.content+'</div></div>')
+                $('#list-message').append('<div class="chat-message-left pb-4"><div><img src="{{ URL::to('/') }}/images/UserImages/{{$receive_user->image}}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40"><div class="text-muted small text-nowrap mt-2">2:34 am</div></div><div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3"><div class="font-weight-bold mb-1">{{$receive_user->name}}</div>'+data.content+'</div></div>')
             }
 
         })
@@ -77,9 +83,7 @@
         $(document).ready(function(){
             $('#btn-send').click(function(){
                 if($('#content').val()!=null){
-
                     var $content=$('#content').val();
-
                     $.post('/user/message/send',{room_id:{{$room->id}},send_id:{{Auth::user()->id}},receive_id:{{$receive_user->id}},content:$content})
                     $('#content').val('')
                 }

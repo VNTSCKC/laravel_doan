@@ -18,259 +18,12 @@
          </div>
         <ul class="setting-area">
             <li><a href="#" title="Home" data-ripple=""><i class="fa fa-home"></i></a></li>
-            <li>
-                <a href="#" title="Friend Requests" data-ripple="">
-                    <i class="fa fa-user"></i><em class="bg-red">5</em>
-                </a>
-                <div class="dropdowns">
-                    <span>5 New Requests <a href="#" title="">View all Requests</a></span>
-                    <ul class="drops-menu">
-                        <li>
-                            <div>
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-2.jpg')}}" alt="">
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6><a href="#" title="">Loren</a></h6>
-                                    <span><b>Amy</b> is mutule friend</span>
-                                    <i>yesterday</i>
-                                </div>
-                                <div class="add-del-friends">
-                                    <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                    <a href="#" title=""><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-3.jpg')}}" alt="">
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6><a href="#" title="">Tina Trump</a></h6>
-                                    <span><b>Simson</b> is mutule friend</span>
-                                    <i>2 days ago</i>
-                                </div>
-                                <div class="add-del-friends">
-                                    <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                    <a href="#" title=""><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-4.jpg')}}" alt="">
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6><a href="#" title="">Andrew</a></h6>
-                                    <span><b>Bikra</b> is mutule friend</span>
-                                    <i>4 hours ago</i>
-                                </div>
-                                <div class="add-del-friends">
-                                    <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                    <a href="#" title=""><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-5.jpg')}}" alt="">
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6><a href="#" title="">Dasha</a></h6>
-                                    <span><b>Sarah</b> is mutule friend</span>
-                                    <i>9 hours ago</i>
-                                </div>
-                                <div class="add-del-friends">
-                                    <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                    <a href="#" title=""><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-1.jpg')}}" alt="">
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6><a href="#" title="">Emily</a></h6>
-                                    <span><b>Amy</b> is mutule friend</span>
-                                    <i>4 hours ago</i>
-                                </div>
-                                <div class="add-del-friends">
-                                    <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                    <a href="#" title=""><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="friend-requests.html" title="" class="more-mesg">View All</a>
-                </div>
-            </li>
-            <li>
-                <a href="#" title="Notification" data-ripple="">
-                    <i class="fa fa-bell"></i><em class="bg-purple">7</em>
-                </a>
-                <div class="dropdowns">
-                    <span>4 New Notifications <a href="#" title="">Mark all as read</a></span>
-                    <ul class="drops-menu">
-                        <li>
-                            <a href="notifications.html" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-1.jpg')}}" alt="">
-                                    <span class="status f-online"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>sarah Loren</h6>
-                                    <span>commented on your new profile status</span>
-                                    <i>2 min ago</i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="notifications.html" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-2.jpg')}}" alt="">
-                                    <span class="status f-online"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Jhon doe</h6>
-                                    <span>Nicholas Grissom just became friends. Write on his wall.</span>
-                                    <i>4 hours ago</i>
-                                    <figure>
-                                        <span>Today is Marina Valentine’s Birthday! wish for celebrating</span>
-                                        <img src="{{asset('user/images/birthday.png')}}" alt="">
-                                    </figure>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="notifications.html" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-3.jpg')}}" alt="">
-                                    <span class="status f-online"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Andrew</h6>
-                                    <span>commented on your photo.</span>
-                                    <i>Sunday</i>
-                                    <figure>
-                                        <span>"Celebrity looks Beautiful in that outfit! We should see each"</span>
-                                        <img src="{{asset('user/images/resources/admin.jpg')}}" alt="">
-                                    </figure>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="notifications.html" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-4.jpg')}}" alt="">
-                                    <span class="status f-online"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Tom cruse</h6>
-                                    <span>nvited you to attend to his event Goo in</span>
-                                    <i>May 19</i>
-                                </div>
-                            </a>
-                            <span class="tag">New</span>
-                        </li>
-                        <li>
-                            <a href="notifications.html" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-5.jpg')}}" alt="">
-                                    <span class="status f-online"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Amy</h6>
-                                    <span>Andrew Changed his profile picture. </span>
-                                    <i>dec 18</i>
-                                </div>
-                            </a>
-                            <span class="tag">New</span>
-                        </li>
-                    </ul>
-                    <a href="notifications.html" title="" class="more-mesg">View All</a>
-                </div>
-            </li>
-            <li>
-                <a href="/user/message" title="Messages" data-ripple=""><i class="fa fa-commenting"></i><em class="bg-blue">9</em></a>
-                <div class="dropdowns">
-                    <span>5 New Messages <a href="#" title="">Mark all as read</a></span>
-                    <ul class="drops-menu">
-                        <li>
-                            <a class="show-mesg" href="#" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-1.jpg')}}" alt="">
-                                    <span class="status f-online"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>sarah Loren</h6>
-                                    <span><i class="ti-check"></i> Hi, how r u dear ...?</span>
-                                    <i>2 min ago</i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="show-mesg" href="#" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-2.jpg')}}" alt="">
-                                    <span class="status f-offline"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Jhon doe</h6>
-                                    <span><i class="ti-check"></i> We’ll have to check that at the office and see if the client is on board with</span>
-                                    <i>2 min ago</i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="show-mesg" href="#" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-3.jpg')}}" alt="">
-                                    <span class="status f-online"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Andrew</h6>
-                                    <span> <i class="fa fa-paperclip"></i>Hi Jack's! It’s Diana, I just wanted to let you know that we have to reschedule..</span>
-                                    <i>2 min ago</i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="show-mesg" href="#" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-4.jpg')}}" alt="">
-                                    <span class="status f-offline"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Tom cruse</h6>
-                                    <span><i class="ti-check"></i> Great, I’ll see you tomorrow!.</span>
-                                    <i>2 min ago</i>
-                                </div>
-                            </a>
-                            <span class="tag">New</span>
-                        </li>
-                        <li>
-                            <a class="show-mesg" href="#" title="">
-                                <figure>
-                                    <img src="{{asset('user/images/resources/thumb-5.jpg')}}" alt="">
-                                    <span class="status f-away"></span>
-                                </figure>
-                                <div class="mesg-meta">
-                                    <h6>Amy</h6>
-                                    <span><i class="fa fa-paperclip"></i> Sed ut perspiciatis unde omnis iste natus error sit </span>
-                                    <i>2 min ago</i>
-                                </div>
-                            </a>
-                            <span class="tag">New</span>
-                        </li>
-                    </ul>
-                    <a href="chat-messenger.html" title="" class="more-mesg">View All</a>
-                </div>
-            </li>
+           
+
+
+                <a href="/user/message" title="Messages" data-ripple="" style="font-size: 20px; margin:0px 10px 0px 10px;"><i class="fa fa-commenting" style="color: #999; "></i></a>
+
+
             <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i><em>EN</em></a>
                 <div class="dropdowns languages">
                     <div data-gutter="10" class="row">
@@ -558,7 +311,7 @@
                     <li><a href="classified.html" title="">Classified</a></li>
                     <li><a href="pitpoint.html" title="">PitPoint</a></li>
                     <li><a href="pittube.html" title="">Pittube</a></li>
-                    <li><a href="chat-messenger.html" title="">Messenger</a></li>
+                    <li><a href="/user/messgae" title="">Messenger</a></li>
                 </ul>
             </li>
             <li><a class="" href="#" title=""><i class="fa fa-film"></i> Pittube</a>
@@ -841,10 +594,11 @@
                 </a>
             </li>
             <li>
-                <a href="chat-messenger.html" title="Messages" data-toggle="tooltip" data-placement="right">
+                <a href="/user/message" title="Messages" data-toggle="tooltip" data-placement="right">
                     <i class="ti-comment-alt"></i>
                 </a>
             </li>
+
             <li>
                 <a href="notifications.html" title="Notification" data-toggle="tooltip" data-placement="right">
                     <i class="fa fa-bell-o"></i>
