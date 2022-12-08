@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function home()
     {
-        $listPost=Post::orderBy('created_at','desc')->get();
+        $listPost=Post::latest()->get();
         return view('user.home',['listPost'=>$listPost]);
     }
     public function searchpost(Request $request){
@@ -129,7 +129,7 @@ class UserController extends Controller
         $listCatalogue=Catalogue::all();
         return view('user.updatepost',['post'=>$post,'listTypePost'=>$listTypePost,'listCatalogue'=>$listCatalogue]);
     }
-    public function updatePost(Request $request,Post $post){
+    public function updatePost(userPostRequest $request,Post $post){
         $post->update($request->all());
         return redirect()->route('trang-chu-nguoi-dung');
     }
@@ -171,6 +171,27 @@ class UserController extends Controller
 
         if(Report::create(['post_id'=>$request->report_id,'account_id'=>Auth::user()->id,'content'=>$request->content]))
             return true;
+    }
+
+    public function myPost()
+    {
+        $account=Account::where('username',Session::get('username'))->first();
+        $news=NewsCast::where('type_id',2)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $tips=NewsCast::where('type_id',1)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $listMyPost=Post::where('account_id',$account->id)->latest()->get();
+        //$listPostFollow=PostFollow::where('account_id',$account->id)->get();
+        return view('user.userpost',['listMyPost'=>$listMyPost,'listNews'=>$news,'listTip'=>$tips]);
+    }
+
+    public function followPost()
+    {
+        $account=Account::where('username',Session::get('username'))->first();
+        $news=NewsCast::where('type_id',2)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $tips=NewsCast::where('type_id',1)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $listPost=Post::get();
+        $listPostFollow=PostFollow::where('account_id',Auth::user()->id)->get();
+        
+        return view('user.postfollow',['listPostFollow'=>$listPostFollow,'listNews'=>$news,'listTip'=>$tips,'listPost'=>$listPost]);
     }
 
     /**

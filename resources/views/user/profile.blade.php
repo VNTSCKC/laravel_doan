@@ -19,11 +19,12 @@
 <div class="col-4">  
         <form action="{{route('xu-li-cap-nhat-thong-tin-user',['id'=>$account->id])}}" method="post" enctype="multipart/form-data">
             @csrf
+           
         <div class="form-group">
         <label style="font-size:20px; color:black; opacity:0.8" for="formFile" class="form-label">Ảnh đại diện</label>
         </br>
         <p>
-        <img id="imageUser"  src="{{ url('/') }}/images/UserImages/{{$account->image}}" style="width: 200px; height: 200px;border-top-right-radius:50%; border-bottom-left-radius:50%; border-top-left-radius:50%; border-bottom-right-radius:50%;" alt="user image" class="img-thumbnail"/>
+        <img id="imageUser"  src="{{ url('/') }}/images/UserImages/{{$account->image}}" style="width: 200px; height: 200px; object-fit:cover; border-top-right-radius:50%; border-bottom-left-radius:50%; border-top-left-radius:50%; border-bottom-right-radius:50%; " alt="user image" class="img-thumbnail"/>
         </p>
         <input class="form-control" type="file" id="formFile" name="imageupload" onchange="readURL(this);">
         </div>
@@ -42,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{$account->email}}">
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{$account->email}}" readonly>
             </div>
             <div class="form-group">
                 <label for="phone">Số điện thoại</label>
@@ -50,18 +51,15 @@
             </div>
             <div class="form-group">
                 <label for="address">Địa chỉ</label>
-                <input type="text" class="form-control"  placeholder="Username" name="address" value="{{$account->address}}">
+                <input type="text" class="form-control"  placeholder="Địa chỉ" name="address" value="{{$account->address}}">
             </div>
             <div class="form-group">
                 <label for="dateofbirth">Ngày sinh</label>
                 <input placeholder="Select date" type="datetime-local" id="dateofbirth" class="form-control" name="dateofbirth" value="{{$account->dateofbirth}}">
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Cập nhật</button>
-          
+            </div>            
+            <button type="submit" class="btn btn-primary">Cập nhật</button>         
           <a href="{{route('trang-chu-nguoi-dung')}}" style="margin: 0px 20px 0 20px" class="btn btn-outline-primary">< Quay lại</a>
           </form>
-          <a href="{{route('trang-chu-user')}}" class="btn btn-outline-primary mt-2">< Back To Home</a>
     </div>
 </div>
 
@@ -76,12 +74,6 @@
       $('#imageUser').attr('src', e.target.result).width(200).height(200);
       $('#imageUser').attr('hidden',false);
     };
-
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-</script>
-@endsection
 
     reader.readAsDataURL(input.files[0]);
   }

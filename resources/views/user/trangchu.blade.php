@@ -28,9 +28,9 @@
                                 </div>
                                 <div class="weather-infos">
                                     <span class="weather-tem">25</span>
-                                    <h3>Cloudy Skyes<i>Tp.Ho Chi Minh, VietNam</i></h3>
+                                    <h3>Cloudy Skyes<i>Tp. Ho Chi Minh, Viet Nam</i></h3>
                                     <div class="weather-date skyblue-bg">
-                                        <span>Nov<strong>21</strong></span>
+                                        <span>DEC<strong>12</strong></span>
                                     </div>
                                 </div>
                                 <div class="monthly-weather">
@@ -75,8 +75,9 @@
 
                             </div><!-- Weather Widget -->
                         </div><!-- weather widget-->
-                        <div class="widget whitish low-opacity">
-                            <div style="background-image: url({{asset('user/images/resources/dob2.png')}})" class="bg-image"></div>
+                        <!-- <div class="widget whitish low-opacity">
+                            <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
+                                class="bg-image"></div>
                             <div class="dob-head">
                                 <img src="{{ asset('user/images/resources/sug-page-5.jpg') }}" alt="">
                                 <span>22nd Birthday</span>
@@ -91,7 +92,109 @@
                                 <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
                                 <p>leave a message with your best wishes on his profile.</p>
                             </div>
+                        </div>birthday widget -->
+                        <div class="widget  low-opacity">
+                            {{-- <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
+                                class="bg-image"></div>
+                            <div class="dob-head">
+                                <img src="{{ asset('user/images/resources/sug-page-5.jpg') }}" alt="">
+                                <span>22nd Birthday</span>
+                                <div class="dob">
+                                    <i>19</i>
+                                    <span>September</span> 
+                                </div>
+                            </div>
+                            <div class="dob-meta">
+                                <figure><img src="{{ asset('user/images/resources/dob-cake.gif') }}" alt="">
+                                </figure>
+                                <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
+                                <p>leave a message with your best wishes on his profile.</p>
+                            </div> --}}
+                            <h2 style="margin-left: 10px">Tin tức</h2>
+                            @if($listNews)
+                            <div class="slideshow-container">
+                                @foreach ($listNews as $news)
+                                <div class="mySlides fade">
+
+                                    <img src="{{URL::to('/')}}/images/post/{{$news->image}}" style="width:100%; height:200px; object-fit:cover;">
+                                    <div class="text">{{$news->title}}</div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <script>
+                                let slideIndex = 0;
+                                showSlides();
+
+                                function showSlides() {
+                                let i;
+                                let slides = document.getElementsByClassName("mySlides");
+                                for (i = 0; i < slides.length; i++) {
+                                slides[i].style.display = "none";
+                                }
+                                slideIndex++;
+                                if (slideIndex > slides.length) {slideIndex = 1}
+                                slides[slideIndex-1].style.display = "block";
+                                setTimeout(showSlides, 2000); // Change image every 2 seconds
+                                }
+                        </script>
+                        <br>
+                        <a href="/news-cast/2" class="btn btn-info" style="margin:0px 0px 10px 10px">Xem tất cả</a>
+
+                        @else
+                        <p>Trống</p>
+                        @endif
                         </div><!-- birthday widget -->
+                        <div class="widget  low-opacity">
+                            {{-- <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
+                                class="bg-image"></div>
+                            <div class="dob-head">
+                                <img src="{{ asset('user/images/resources/sug-page-5.jpg') }}" alt="">
+                                <span>22nd Birthday</span>
+                                <div class="dob">
+                                    <i>19</i>
+                                    <span>September</span>
+                                </div>
+                            </div>
+                            <div class="dob-meta">
+                                <figure><img src="{{ asset('user/images/resources/dob-cake.gif') }}" alt="">
+                                </figure>
+                                <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
+                                <p>leave a message with your best wishes on his profile.</p>
+                            </div> --}}
+                            <h2  style="margin-left: 10px">Mẹo tìm đồ</h2>
+                            @if($listTip)
+                            <div class="slideshow-container">
+                                @foreach ($listTip as $tip)
+                                <div class="mySlides-tip fade">
+                                    <img src="{{URL::to('/')}}/images/post/{{$tip->image}}" style="width:100%; height:200px; object-fit:cover;">
+                                    <div class="text">{{$tip->title}}</div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <script>
+                                let slideIndex_tip = 0;
+                                showSlides_tip();
+
+                                function showSlides_tip() {
+                                let i_tip;
+                                let slides_tip = document.getElementsByClassName("mySlides-tip");
+                                for (i = 0; i < slides_tip.length; i++) {
+                                    slides_tip[i].style.display = "none";
+                                }
+                                slideIndex_tip++;
+                                if (slideIndex_tip > slides_tip.length) {slideIndex_tip = 1}
+                                slides_tip[slideIndex_tip-1].style.display = "block";
+                                setTimeout(showSlides_tip, 2000); // Change image every 2 seconds
+                                }
+                        </script>
+                        <br>
+                        <a href="/news-cast/1" class="btn btn-info" style="margin:0px 0px 10px 10px">Xem tất cả</a>
+
+                        @else
+                        <p>Trống</p>
+                        @endif
+                        </div><!-- birthday widget -->
+
                     </aside>
                 </div><!-- sidebar -->
                 <div class="col-lg-6">
@@ -102,14 +205,21 @@
                                 <p class="alert alert-success">{{ session('success_create_post') }}</p>
                             @endif
                             <figure>
-                                <img src="{{asset('user/images/resources/admin.jpg')}}" alt="">
+                                @if (Auth::user()->image)
+                                    <img style="width:50px; height:50px; object-fit:cover;"
+                                        src="{{ url('/') }}/images/UserImages/{{ Auth::user()->image }}"
+                                        alt="">
+                                @else
+                                    <img style="width:50px; height:50px; object-fit:cover;"
+                                        src="{{ url('/') }}/images/UserImages/avt.png" alt="">
+                                @endif
                             </figure>
                             <div class="newpst-input">
                                 <p style="margin-left: 10px; margin-top:10px;">Bài đăng tìm đồ/ nhặt đồ</p>
 
                             </div>
                             <div class="attachments">
-                                <a href="/user/dang-bai" class="btn btn-info">Đăng bài</a>
+                                <a href="/user/dang-bai" class="post-btn">Đăng bài</a>
                             </div>
                             <div class="add-location-post">
                                 <span>Drag map point to selected area</span>
@@ -137,12 +247,10 @@
                                     <div class="friend-info">
                                         <figure>
                                             @if( !$post->nguoiDang->image)
-                                                <img src="{{ URL::to('/') }}/images/UserImages/avt.png"
-                                                alt="">
+                                                <img src="{{ URL::to('/') }}/images/UserImages/avt.png" style="width:50px; height:50px; object-fit:cover;" alt="">
 
                                             @else
-                                            <img src="{{ URL::to('/') }}/images/UserImages/{{ $post->nguoiDang->image }}"
-                                                alt="">
+                                            <img src="{{ URL::to('/') }}/images/UserImages/{{ $post->nguoiDang->image }}" style="width:50px; height:50px; object-fit:cover;" alt="">
                                          @endif
                                         </figure>
                                         <div class="friend-name">
@@ -187,13 +295,13 @@
                                                                 }
                                                                 if ($flag == false) {
                                                                     echo '
-                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Theo dỗi bài viết"
+                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Theo dõi bài viết"
                                                             class="border-0 follow-post"
                                                             style="background-color: transparent"></li>';
                                                                 }
                                                                 else{
                                                                     echo '
-                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Hủy theo dỗi"
+                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Hủy theo dõi"
                                                             class="border-0 follow-post"
                                                             style="background-color: transparent"></li>';
                                                                 }
@@ -294,34 +402,32 @@
                     </div>
                 </div><!-- centerl meta -->
                 <div class="col-lg-3">
-                    <aside class="sidebar static right">
-                        <div class="widget">
-                            <h4 class="widget-title">Trang Cá Nhân</h4>
-                            <div class="your-page">
-                                <figure>
-                                    <a href="#" title=""><img src="{{asset('user/images/resources/friend-avatar9.jpg')}}" alt=""></a>
-                                </figure>
-                                <div class="page-meta">
-                                    <a href="#" title="" class="underline">Họ tên</a>
-                                    <span><i class="ti-comment"></i><a href="insight.html" title="">Tin nhắn <em>9</em></a></span>
-                                </div>
-                                <ul class="page-publishes ">
-                                    <li>
-                                        <span><i class="ti-pencil-alt"></i>Thông tin cá nhân</span>
-                                    </li>
-                                    <li>
-                                        <span><i class="ti-camera"></i>Ảnh đại diện</span>
-                                    </li>
+                                <aside class="sidebar static right">
+                                    <div class="widget">
+                                        <h4 class="widget-title">Trang Cá Nhân</h4>
+                                        <div class="your-page">
+                                            <figure>
+
+                                                <a href="#" title=""><img style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt=""></a>
+                                            </figure>
+                                            <div class="page-meta">
+                                                <a href="#" title="" class="underline">{{Auth::user()->name}}</a>
+                                                <span><i class="ti-comment"></i><a href="{{ route('trang-chu-nhan-tin')}}" title="">Tin nhắn </a></span>
+                                            </div>
+                                            <ul class="page-publishes ">
+                                                <li>
+                                                    <span><i class="ti-pencil"></i><a href="{{ route('trang-ca-nhan')}}" title="">Bài viết của tôi</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><i class="ti-bell"></i><a href="{{ route('trang-bai-theo-doi')}}" title="">Bài viết theo dõi </a></span>
+                                                </li>
 
                                             </ul>
 
                                         </div>
                                     </div><!-- page like widget -->
-
-
-
                                 </aside>
-                            </div><!-- sidebar --> --}}
+                            </div><!-- sidebar --> 
             </div>
         </div>
     </div>
@@ -379,16 +485,16 @@
             })
             $(".follow-post").click(function(e) {
 
-                if($(this).val()=="Theo dỗi bài viết"){
+                if($(this).val()=="Theo dõi bài viết"){
                     $follow_post_id=$(this).attr('id').slice(12);
-                    $(this).val("Hủy theo dỗi")
+                    $(this).val("Hủy theo dõi")
                     alert($follow_post_id);
                     $type=1;
                     $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
                         Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Theo dỗi bài đăng thành công',
+                        title: 'Theo dõi bài đăng thành công',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -396,14 +502,14 @@
                     return false;
                 }else{
                     $follow_post_id=$(this).attr('id').slice(12);
-                    $(this).val("Theo dỗi bài viết")
+                    $(this).val("Theo dõi bài viết")
                     alert($follow_post_id);
                     $type=0;
                     $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
                         Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Đã hủy theo dỗi bài đăng',
+                        title: 'Đã hủy theo dõi bài đăng',
                         showConfirmButton: false,
                         timer: 1500
                     })

@@ -39,8 +39,8 @@ class userPostRequest extends FormRequest
             //'account_id.required' =>'Không tìm thấy AccountId',
             'type_id.required'=>'Không được bỏ trống Loại bài đăng',
             'catalogue_id.required'=>'Không được bỏ trống Loại danh mục',
-            'title.required'=>'Không được bỏ trống Tiêu đề bài post',
-            'content.required'=>'Không được bỏ trống Nội dung bài post',
+            'title.required'=>'Không được bỏ trống Tiêu đề bài viết',
+            'content.required'=>'Không được bỏ trống Nội dung bài viết',
             'location.required'=>'Không được bỏ trống Địa điểm (Nhặt/Mất đồ)',    
         ];
     }

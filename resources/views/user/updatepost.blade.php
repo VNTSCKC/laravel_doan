@@ -56,7 +56,7 @@
             <label for="exampleInputLocation">Địa chỉ</label>
             <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" value="{{$post->location}}">
         </div>
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <button type="submit" class="btn btn-primary" >Cập nhật</button>
     </form>
 </div>
 @endsection
@@ -118,7 +118,7 @@ $(document).ready(function(){
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
     });
-    $('#update-post').click(function(e){
+    $('#update-post').submit(function(e){
     e.preventDefault(e);
     var frmAction=this.action;
     Swal.fire({
@@ -132,7 +132,7 @@ $(document).ready(function(){
     if (result.isConfirmed) {
     Swal.fire('Thay đổi thành công!', '', 'Hoàn tất').then((result)=>{
     $.post(frmAction);
-    e.currentTarget.submit();})
+    window.location.replace("/user/trang-chu")})
 
     } else if (result.isDenied) {
     Swal.fire('Hủy cập nhật', '', 'Thông báo').then((result)=> window.location.replace("/user/trang-chu"));
