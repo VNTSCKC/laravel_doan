@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Requests\dangkyRequest;
 use App\Http\Requests\dangnhapRequest;
+use App\Http\Requests\accountRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Cache;
@@ -78,7 +79,7 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(accountRequest $request)
     {
         if($request->has('imageupload')){
             $file=$request->imageupload;
@@ -142,7 +143,7 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(accountRequest $request, $id)
     {
         $account=Account::find($id);
         if($request->has('imageupload')){

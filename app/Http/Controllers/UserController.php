@@ -54,6 +54,16 @@ class UserController extends Controller
         }
 
     }
+
+    public function unfollow(Request $request)
+    {
+        $postFollow=PostFollow::find($request->follow_post_id);
+        $postFollow->delete();
+            $postFollow->save();
+            return true;
+
+    }
+
     public function index()
     {
         $account=Account::where('username',Session::get('username'))->first();

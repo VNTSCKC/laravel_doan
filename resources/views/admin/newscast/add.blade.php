@@ -17,12 +17,8 @@
 
 @endsection
 @section('content')
-<<<<<<< HEAD
-<h2>FORM THÊM MỚI BẢN TIN</h2>
-<form action="{{route('xu-li-them-moi-ban-tin')}}" method="post" enctype="multipart/form-data">
-=======
+<h2> THÊM MỚI BẢN TIN</h2>
 <form action="{{route('xu-li-them-moi-ban-tin')}}" method="post" enctype="multipart/form-data" id="add-news-cast">
->>>>>>> minh_hung
     @csrf
     <div class="form-group">
         <label for="account">Tài khoản đăng</label>
@@ -44,14 +40,24 @@
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
         <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title">
+        @error('title')
+            <div style="color:red">{{ $message }}</div>
+       @enderror
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
         <textarea name="content" id="content"></textarea>
+        @error('content')
+            <div style="color:red">{{ $message }}</div>
+        @enderror
     </div>
     <div class="mb-3">
         <label for="formFile" class="form-label">Hình ảnh chủ đề</label>
+        @error('imageupload')
+        <div style="color:red">{{ $message }}</div>
+        @enderror
         <input class="form-control" type="file" id="formFile" name="imageupload">
+        
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

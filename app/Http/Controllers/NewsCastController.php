@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\NewsCast;
 use App\Models\Account;
 use App\Models\TypeNewsCast;
+use App\Http\Requests\newsCastRequest;
 
 use Yajra\Datatables\Datatables;
 
@@ -72,7 +73,7 @@ class NewsCastController extends Controller
     public function create()
     {
         $listAccount=Account::all();
-        $listTypeNewsCast=TyPeNewsCast::all();
+        $listTypeNewsCast=TypeNewsCast::all();
         return view('admin.newscast.add',['listAccount'=>$listAccount,'listTypeNewsCast'=>$listTypeNewsCast]);
     }
 
@@ -82,7 +83,7 @@ class NewsCastController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(newsCastRequest $request)
     {
         if($request->has('imageupload')){
             $file=$request->imageupload;
@@ -128,7 +129,7 @@ class NewsCastController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(newsCastRequest $request, $id)
     {
         $newsCast=NewsCast::find($id);
         if($request->has('imageupload')){

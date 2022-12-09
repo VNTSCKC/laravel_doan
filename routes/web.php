@@ -136,6 +136,7 @@ Route::prefix('user')->middleware(['auth','role'])->group(function(){
     Route::post('follow-post',[UserController::class,"follow"])->name('theo-doi-bai-dang');
     Route::get('userpost',[UserController::class,"myPost"])->name('trang-ca-nhan');
     Route::get('post-follow',[UserController::class,"followPost"])->name('trang-bai-theo-doi');
+    Route::post('post-unfollow',[UserController::class,"unfollow"])->name('huy-theo-doi-bai-dang');
 
     // Route::post('report-post/{post}',[UserController::class,"report"])->name('bao-cao-bai-dang');
     Route::post('report-post',[UserController::class,"report"])->name('bao-cao-bai-dang');

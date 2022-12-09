@@ -202,90 +202,42 @@
 
                     <div class="loadMore" id="bai-dang">
                         @foreach ($listPostFollow as $postfl)
-                        @foreach ($listPost as $post)
-                        @if($post->id == $postfl->id)
-                            <div class="central-meta item">
+                            <div class="central-meta item" id="unfl{{$postfl->id}}">
                                 <div class="user-post">
                                     <div class="friend-info">
                                         <figure>
-                                            @if( !$post->nguoiDang->image)
+                                            @if( !$postfl->baiduocfl->nguoiDang->image)
                                                 <img src="{{ URL::to('/') }}/images/UserImages/avt.png" style="width:50px; height:40px; object-fit:cover;" alt="">
 
                                             @else
-                                            <img src="{{ URL::to('/') }}/images/UserImages/{{ $post->nguoiDang->image }}" style="width:50px; height:40px; object-fit:cover;" alt="">
+                                            <img src="{{ URL::to('/') }}/images/UserImages/{{ $postfl->baiduocfl->nguoiDang->image }}" style="width:50px; height:40px; object-fit:cover;" alt="">
                                          @endif
                                         </figure>
                                         <div class="friend-name">
                                             <div class="more">
                                                 <div class="more-post-optns"><i class="ti-more-alt"></i>
                                                     <ul>
-                                                        <!-- @if ($post->nguoiDang->username == Session::get('username'))
-                                                            <form
-                                                                action="{{ route('cap-nhat-bai-dang-cua-nguoi-dung', ['post' => $post->id]) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <li><i class="fa fa-pencil-square-o"></i>
-                                                                    <input type="submit" value="Sửa bài viết"
-                                                                        class="border-0"
-                                                                        style="background-color: transparent">
-                                                                </li>
-                                                            </form>
-                                                            <form
-                                                                action="{{ route('xoa-bai-dang-cua-nguoi-dung', ['post' => $post->id]) }}"
-                                                                method="post" class="delete-post">
-                                                                @csrf
-                                                                <li>
-                                                                    <i class="fa fa-trash-o"></i>
-                                                                    <input id="{{$post->id}}" type="submit" value="Xóa bài viết"
-                                                                        class="border-0"
-                                                                        style="background-color: transparent">
-                                                                </li>
-                                                            </form>
-                                                        @endif -->
-                                                        <li>    <i class="fa fa-flag"></i>   <input  id="post_{{$post->id}}" type="button" value="Báo cáo bài viết"
+                                                        
+                                                        <li>    <i class="fa fa-flag"></i>   <input  id="post_{{$postfl->baiduocfl->id}}" type="button" value="Báo cáo bài viết"
                                                             class="border-0 report-post"
                                                             style="background-color: transparent"></li>
-                                                        @if ($post->nguoiDang->username != Auth::user()->username)
-                                                            @php
-
-                                                                $flag = false;
-                                                                foreach ($listPostFollow as $postFollow) {
-                                                                    if ($postFollow->post_id == $post->id) {
-                                                                        $flag = true;
-                                                                        break;
-                                                                    }
-                                                                }
-                                                                if ($flag == false) {
-                                                                    echo '
-                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Theo dõi bài viết"
+                                                            <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_{{$postfl->id}}" type="button" value="Hủy theo dõi"
                                                             class="border-0 follow-post"
-                                                            style="background-color: transparent"></li>';
-                                                                }
-                                                                else{
-                                                                    echo '
-                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Hủy theo dõi"
-                                                            class="border-0 follow-post"
-                                                            style="background-color: transparent"></li>';
-                                                                }
-                                                            @endphp
-                                                        @endif
-
-
-
+                                                            style="background-color: transparent"></li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <ins><a href="time-line.html" title="">{{ $post->nguoiDang->name }}</a>
-                                                {{ $post->loaiBaiDang->name }}/{{ $post->loaiDo->name }}</ins>
-                                            <span><i class="fa fa-globe"></i> Ngày đăng: {{ $post->created_at }}</span>
-                                            @if ($post->updated_at != null && $post->created_at != $post->updated_at)
+                                            <ins><a href="time-line.html" title="">{{ $postfl->baiduocfl->name }}</a>
+                                                {{ $postfl->baiduocfl->loaiBaiDang->name }}/{{ $postfl->baiduocfl->loaiDo->name }}</ins>
+                                            <span><i class="fa fa-globe"></i> Ngày đăng: {{ $postfl->baiduocfl->created_at }}</span>
+                                            @if ($postfl->baiduocfl->updated_at != null && $postfl->baiduocfl->created_at != $postfl->baiduocfl->updated_at)
                                                 <span></i> Đã chỉnh sửa</span>
                                             @endif
                                         </div>
                                         <div class="post-meta" style="text-transform: none;">
-                                            <h1>{{ $post->title }}</h1>
+                                            <h1>{{ $postfl->baiduocfl->title }}</h1>
                                             <p>
-                                                {!! $post->content !!}
+                                                {!! $postfl->baiduocfl->content !!}
                                             </p>
                                             {{-- <figure>
                                             <div class="img-bunch">
@@ -360,8 +312,6 @@
 
 
                             </div><!-- album post -->
-                            @endif
-                        @endforeach
                         @endforeach
                     </div>
                 </div><!-- centerl meta -->
@@ -449,27 +399,13 @@
             })
             $(".follow-post").click(function(e) {
 
-                if($(this).val()=="Theo dõi bài viết"){
+               
                     $follow_post_id=$(this).attr('id').slice(12);
-                    $(this).val("Hủy theo dõi")
-                    alert($follow_post_id);
-                    $type=1;
-                    $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
-                        Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Theo dõi bài đăng thành công',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    });
-                    return false;
-                }else{
-                    $follow_post_id=$(this).attr('id').slice(12);
-                    $(this).val("Theo dõi bài viết")
-                    alert($follow_post_id);
                     $type=0;
-                    $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
+
+                    $.post('/user/post-unfollow',{follow_post_id:$follow_post_id,type:$type}).done(function(){
+                        $("#unfl" + $follow_post_id).hide();
+
                         Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -479,7 +415,7 @@
                     })
                     });
                     return false;
-                }
+                
 
             })
             $(".report-post").click(async function(e) {

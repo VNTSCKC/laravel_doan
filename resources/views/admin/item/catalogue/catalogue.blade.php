@@ -19,11 +19,7 @@
 </div>
 @endif
         <a class="btn btn-success" href="{{route('them-moi-danh-muc-tim-do')}}">Thêm mới</a>
-<<<<<<< HEAD
       <h4 class="card-title" style="margin: 10px 0 10px 0" >Danh mục tìm đồ</h4>
-=======
-      <h4 class="card-title">Danh mục tìm đồ</h4>
->>>>>>> minh_hung
       <table class="table " id="catalogue-table">
         <thead class="table-dark">
           <tr>
