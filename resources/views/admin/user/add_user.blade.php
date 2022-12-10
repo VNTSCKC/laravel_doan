@@ -7,21 +7,27 @@
 
 <form action="{{route('xu-li-them-moi-nguoi-dung')}}" method="post" enctype="multipart/form-data">
     @csrf
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{$error}}</div>
+    @endforeach
+    @endif
+    
     <div class="form-group">
-        <label for="username" >Username</label>
-        <input type="text" class="form-control"  placeholder="Username" name="username" required>
+        <label for="username">Username</label>
+        <input type="text" class="form-control"  placeholder="Tên đăng nhập" name="username" required>
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" required>
+      <label for="password">Mật khẩu</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mật khẩu" name="password" required>
     </div>
     <div class="form-group">
         <label for="name">Họ tên</label>
-        <input type="text" class="form-control"  placeholder="Username" name="name" required>
+        <input type="text" class="form-control"  placeholder="Họ tên" name="name" required>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
+        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" name="email" required>
     </div>
     <div class="form-group">
         <label for="phone">Số điện thoại</label>
@@ -29,11 +35,11 @@
     </div>
     <div class="form-group">
         <label for="address">Địa chỉ</label>
-        <input type="text" class="form-control"  placeholder="Username" name="address">
+        <input type="text" class="form-control"  placeholder="Địa chỉ" name="address">
     </div>
     <div class="form-group">
         <label for="dateofbirth">Ngày sinh</label>
-        <input placeholder="Select date" type="date" id="dateofbirth" class="form-control" name="dateofbirth">
+        <input placeholder="Ngày sinh" type="date" id="dateofbirth" class="form-control" name="dateofbirth">
     </div>
     <div class="form-group">
         <label for="formFile" class="form-label">Hình ảnh</label>
@@ -41,7 +47,7 @@
         <input class="form-control" type="file" id="formFile" name="imageupload" onchange="readURL(this);">
     </div>
     <select class="form-select" aria-label="Default select example" name="position">
-        <option selected>Open this select menu</option>
+        <option selected>Chọn cấp bậc</option>
         <option value="admin">Quản trị viên</option>
         <option value="user">Người dùng</option>
     </select>
@@ -53,7 +59,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Thêm mới</button>
 </form>
-<a href="/admin/user/danh-sach">< Back</a>
+<a href="/admin/user/danh-sach">< Quay lại</a>
 @endsection
 @section('js')
 <script>

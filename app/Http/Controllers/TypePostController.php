@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TypePost;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\typePostRequest;
 
 class TypePostController extends Controller
 {
@@ -47,7 +48,7 @@ class TypePostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(typePostRequest $request)
     {
         if(TypePost::where('name',$request->name)->first()){
             return redirect()->back()->with('error','Đã có loại bài đăng này rồi');
@@ -88,7 +89,7 @@ class TypePostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(typePostRequest $request, $id)
     {
         if(TypePost::where('name',$request->name)->where('id','<>',$id)->first()){
             return redirect()->back()->with('error','Đã có loại bài đăng này rồi');

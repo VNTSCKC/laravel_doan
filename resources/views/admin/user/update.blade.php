@@ -1,18 +1,24 @@
 @extends('layouts.admin')
 @section('content')
+<h2> CẬP NHẬT THÔNG TIN TÀI KHOẢN</h2>
 <form action="{{route('xu-li-cap-nhat-tai-khoan',['id'=>$account->id])}}" method="post" enctype="multipart/form-data">
     @csrf
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{$error}}</div>
+    @endforeach
+    @endif
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control"  placeholder="Username" name="username" value="{{$account->username}}" required>
+        <input type="text" class="form-control"  placeholder="Username" name="Tên đăng nhập" value="{{$account->username}}" required>
     </div>
     <div class="form-group">
         <label for="name">Họ tên</label>
-        <input type="text" class="form-control"  placeholder="Username" name="name" value="{{$account->name}}" required>
+        <input type="text" class="form-control"  placeholder="Họ tên" name="name" value="{{$account->name}}" required>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{$account->email}}" required>
+        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" name="email" value="{{$account->email}}" required>
     </div>
     <div class="form-group">
         <label for="phone">Số điện thoại</label>
@@ -20,11 +26,11 @@
     </div>
     <div class="form-group">
         <label for="address">Địa chỉ</label>
-        <input type="text" class="form-control"  placeholder="Username" name="address" value="{{$account->address}}">
+        <input type="text" class="form-control"  placeholder="Địa chỉ" name="address" value="{{$account->address}}">
     </div>
     <div class="form-group">
         <label for="dateofbirth">Ngày sinh</label>
-        <input placeholder="Select date" type="datetime-local" id="dateofbirth" class="form-control" name="dateofbirth" value="{{$account->dateofbirth}}">
+        <input placeholder="Ngày sinh" type="datetime-local" id="dateofbirth" class="form-control" name="dateofbirth" value="{{$account->dateofbirth}}">
     </div>
     <div class="form-group">
         <label for="formFile" class="form-label">Hình ảnh</label>
@@ -32,7 +38,7 @@
         <input class="form-control" type="file" id="formFile" name="imageupload" onchange="readURL(this);">
     </div>
     <select class="form-select" aria-label="Default select example" name="position">
-        <option selected>Open this select menu</option>
+        <option selected>Chọn cấp bậc</option>
         @if ($account->positon=="admin")
         <option value="admin" selected>Quản trị viên</option>
         <option value="user">Người dùng</option>
@@ -53,7 +59,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Cập nhật</button>
   </form>
-  <a href="/admin/user/danh-sach">< Back</a>
+  <a href="/admin/user/danh-sach">< Quay lại</a>
 @endsection
 @section('js')
 <script>

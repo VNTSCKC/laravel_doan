@@ -28,9 +28,9 @@
                                 </div>
                                 <div class="weather-infos">
                                     <span class="weather-tem">25</span>
-                                    <h3>Cloudy Skyes<i>Sicklervilte, New Jersey</i></h3>
+                                    <h3>Cloudy Skyes<i>Tp. Ho Chi Minh, Viet Nam</i></h3>
                                     <div class="weather-date skyblue-bg">
-                                        <span>MAY<strong>21</strong></span>
+                                        <span>DEC<strong>12</strong></span>
                                     </div>
                                 </div>
                                 <div class="monthly-weather">
@@ -75,7 +75,7 @@
 
                             </div><!-- Weather Widget -->
                         </div><!-- weather widget-->
-                        <div class="widget whitish low-opacity">
+                        <!-- <div class="widget whitish low-opacity">
                             <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
                                 class="bg-image"></div>
                             <div class="dob-head">
@@ -92,7 +92,7 @@
                                 <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
                                 <p>leave a message with your best wishes on his profile.</p>
                             </div>
-                        </div><!-- birthday widget -->
+                        </div>birthday widget -->
                         <div class="widget  low-opacity">
                             {{-- <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
                                 class="bg-image"></div>
@@ -324,13 +324,13 @@
                                                                 }
                                                                 if ($flag == false) {
                                                                     echo '
-                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Theo dỗi bài viết"
+                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Theo dõi bài viết"
                                                             class="border-0 follow-post"
                                                             style="background-color: transparent"></li>';
                                                                 }
                                                                 else{
                                                                     echo '
-                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Hủy theo dỗi"
+                                                                        <li><i class="fa fa-wpexplorer"></i>   <input  id="follow_post_'.$post->id.'" type="button" value="Hủy theo dõi"
                                                             class="border-0 follow-post"
                                                             style="background-color: transparent"></li>';
                                                                 }
@@ -436,36 +436,33 @@
                         @endforeach
                     </div>
                 </div><!-- centerl meta -->
-                {{-- <div class="col-lg-3">
+                <div class="col-lg-3">
                                 <aside class="sidebar static right">
                                     <div class="widget">
                                         <h4 class="widget-title">Trang Cá Nhân</h4>
                                         <div class="your-page">
                                             <figure>
 
-                                                <a href="#" title=""><img src="{{asset('user/images/resources/friend-avatar9.jpg')}}" alt=""></a>
+                                                <a href="#" title=""><img style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt=""></a>
                                             </figure>
                                             <div class="page-meta">
-                                                <a href="#" title="" class="underline">Họ tên</a>
-                                                <span><i class="ti-comment"></i><a href="insight.html" title="">Tin nhắn <em>9</em></a></span>
+                                                <a href="#" title="" class="underline">{{Auth::user()->name}}</a>
+                                                <span><i class="ti-comment"></i><a href="{{ route('trang-chu-nhan-tin')}}" title="">Tin nhắn </a></span>
                                             </div>
                                             <ul class="page-publishes ">
                                                 <li>
-                                                    <span><i class="ti-pencil-alt"></i>Thông tin cá nhân</span>
+                                                    <span><i class="ti-pencil"></i><a href="{{ route('trang-ca-nhan')}}" title="">Bài viết của tôi</a></span>
                                                 </li>
                                                 <li>
-                                                    <span><i class="ti-camera"></i>Ảnh đại diện</span>
+                                                    <span><i class="ti-bell"></i><a href="{{ route('trang-bai-theo-doi')}}" title="">Bài viết theo dõi </a></span>
                                                 </li>
 
                                             </ul>
 
                                         </div>
                                     </div><!-- page like widget -->
-
-
-
                                 </aside>
-                            </div><!-- sidebar --> --}}
+                            </div><!-- sidebar -->
             </div>
         </div>
     </div>
@@ -527,16 +524,16 @@
             })
             $(".follow-post").click(function(e) {
 
-                if($(this).val()=="Theo dỗi bài viết"){
+                if($(this).val()=="Theo dõi bài viết"){
                     $follow_post_id=$(this).attr('id').slice(12);
-                    $(this).val("Hủy theo dỗi")
+                    $(this).val("Hủy theo dõi")
                     alert($follow_post_id);
                     $type=1;
                     $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
                         Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Theo dỗi bài đăng thành công',
+                        title: 'Theo dõi bài đăng thành công',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -545,13 +542,13 @@
                 }else{
                     $follow_post_id=$(this).attr('id').slice(12);
                     $(this).val("Theo dỗi bài viết")
-                    
+
                     $type=0;
                     $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
                         Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Đã hủy theo dỗi bài đăng',
+                        title: 'Đã hủy theo dõi bài đăng',
                         showConfirmButton: false,
                         timer: 1500
                     })

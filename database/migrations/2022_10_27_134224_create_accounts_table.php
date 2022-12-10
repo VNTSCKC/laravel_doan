@@ -18,11 +18,11 @@ class CreateAccountsTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('name');
-            $table->string('image')->nullable();
+            $table->string('image')->default("avt.png");
             $table->string('email');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->dateTime('dateofbirth');
+            $table->dateTime('dateofbirth')->nullable();
             $table->string('position');
             $table->boolean('status_post')->default(true);
             $table->timestamps();

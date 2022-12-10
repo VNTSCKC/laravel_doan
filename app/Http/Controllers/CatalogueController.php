@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Catalogue;
+use App\Http\Requests\catalogueRequest;
 use Yajra\Datatables\Datatables;
 
 
@@ -50,7 +51,7 @@ class CatalogueController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(catalogueRequest $request)
     {
         $exist=Catalogue::where('name',$request->name)->first();
         if($exist){
@@ -93,7 +94,7 @@ class CatalogueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(catalogueRequest $request, $id)
     {
         $exist=Catalogue::where('name',$request->name)->where('id','<>',$request->id)->first();
         if($exist){

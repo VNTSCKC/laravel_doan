@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TypeNewsCast;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\typeNewsCastRequest;
 
 
 class TypeNewsCastController extends Controller
@@ -48,7 +49,7 @@ class TypeNewsCastController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(typeNewsCastRequest $request)
     {
         if(TypeNewsCast::where('name',$request->name)->first()){
             return redirect()->back()->with('error','Đã có loại bản tin này rồi');
@@ -89,7 +90,7 @@ class TypeNewsCastController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(typeNewsCastRequest $request, $id)
     {
         if(TypeNewsCast::where('name',$request->name)->where('id','<>',$id)->first()){
             return redirect()->back()->with('error','Đã có loại bản tin này rồi');

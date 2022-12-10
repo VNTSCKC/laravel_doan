@@ -14,7 +14,7 @@ class Account extends Authenticatable
 
     protected $table="account";
 
-    protected $fillable=["username","password","name","email","phone","address","dateofbirth","image","position","status_post","status","last_seen","token"];
+    protected $fillable=["username","password","name","email","phone","address","dateofbirth","image","position","status_post","status","last_seen","token","remember_token"];
 
 
 }

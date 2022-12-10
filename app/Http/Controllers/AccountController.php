@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Requests\dangkyRequest;
 use App\Http\Requests\dangnhapRequest;
+use App\Http\Requests\quenMatKhauRequest;
+use App\Http\Requests\accountRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Cache;
@@ -78,7 +80,7 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(accountRequest $request)
     {
         if($request->has('imageupload')){
             $file=$request->imageupload;
@@ -113,6 +115,7 @@ class AccountController extends Controller
      */
     public function show($id)
     {
+
         $account=Account::find($id);
         if($account==null){
             echo "ERROR";
@@ -141,7 +144,7 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(accountRequest $request, $id)
     {
         $account=Account::find($id);
         if($request->has('imageupload')){
@@ -175,15 +178,17 @@ class AccountController extends Controller
         return view('user.trangchu');
     }
     public function reVerifyAccount(Account $account,$token){
-        if($account->token==$token){
-            $account->update(['token'=>Str::random(40)]);
-            Mail::send('emails.activeaccount', compact('account'), function ($message) use($account) {
-                $message->to($account->email, $account->name);
-                $message->subject('Tìm đồ xịn - Xác nhận tài khoản');
-            });
-            return redirect()->route('dang-nhap')->with('success_reverify_account','Đã gửi thư xác nhận qua Gmail, Vui lòng vào email để xác nhận');
-        }
+
+        $account->update(['token'=>Str::random(40)]);
+        Mail::send('emails.activeaccount', compact('account'), function ($message) use($account) {
+            $message->to($account->email, $account->name);
+            $message->subject('Tìm đồ xịn - Xác nhận tài khoản');
+        });
+        return redirect()->route('dang-nhap')->with('success_reverify_account',
+        'Đã gửi thư xác nhận qua Gmail, Vui lòng vào email để xác nhận');
+
     }
+
     public function dangKy()
     {
         return view('dangky');
@@ -260,6 +265,50 @@ class AccountController extends Controller
             return redirect()->route('trang-chu-nguoi-dung');
         }
         return redirect()->back()->with("error","Đăng nhập không thành công");
+    }
+    public function quenMatKhau()
+    {
+        return view('password.quenmatkhau');
+    }
+    public function layMatkhau(Account $account , $token_password)
+    {
+        // dd($token_password);
+        if($account->remember_token  == $token_password)
+        {
+            return view('password.datlaimatkhau',['account'=>$account,'token_password'=>$token_password]);
+        }
+
+        return abort(404);
+    }
+
+
+    public function xulyQuenmatkhau(quenMatkhauRequest $request)
+    {
+
+        $account = Account::where('email',$request->email)->first();
+        if($account !=null) {
+            $account->update(['remember_token'=>Str::random(40)]);
+
+
+        Mail::send('emails.check_email_password', compact('account'), function($email) use($account)
+        {
+
+            $email->to($account->email, $account->name);
+            $email->subject('Tìm đồ xịn - Đặt lại mật khẩu');
+
+        });
+        return redirect()->route('dang-nhap')->with('forget_password','Vui lòng kiểm tra Email để đặt lại mật khẩu');
+        }
+        return redirect()->route('quen-mat-khau')->with('error','Email không tồn tại');
+
+    }
+
+
+    public function xylylayMatkhau(Request $request, Account $account )
+    {
+        $password_change =Hash::make($request->password);
+        $account->update(['password'=>$password_change,'remember_token'=>null]);
+        return redirect()->route('dang-nhap')->with('success_forget_password','Đặt lại mật khẩu thành công');
     }
     public function dangXuat()
     {

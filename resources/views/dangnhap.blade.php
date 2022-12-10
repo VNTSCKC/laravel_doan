@@ -42,6 +42,12 @@
 
                         <div class="col-lg-4">
                             <div class="we-login-register">
+                                @if (session('success_forget_password'))
+                                <div class="alert alert-success">{{session('success_forget_password')}}</div>
+                                @endif
+                                @if (session('forget_password'))
+                                <div class="alert alert-success">{{session('forget_password')}}</div>
+                                @endif
                                 @if(session('error'))
                                 <div class="alert alert-warning">
                                     {{session('error')}}
@@ -93,7 +99,7 @@
                                     @enderror
 
                                     <button type="submit" data-ripple="">Đăng nhập</button>
-                                    <a class="forgot underline" href="#" title="">Quên mật khẩu</a>
+                                    <a class="forgot underline" href="/quen-mat-khau" title="">Quên mật khẩu</a>
                                 </form>
                                 <span> <a class="we-account underline" href="/dang-ky" title="">Đăng ký</a></span>
                             </div>

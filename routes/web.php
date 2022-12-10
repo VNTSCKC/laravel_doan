@@ -28,10 +28,14 @@ Route::get('/revefiry-account/{account}/{token}',[AccountController::class,'reVe
 Route::post('/dang-ky',[AccountController::class,'xuliDangKy'])->name('xu-li-dang-ky');
 Route::post('/dang-nhap',[AccountController::class,'xulyDangNhap'])->name('xu-ly-dang-nhap')->middleware('guest');
 Route::get('/dang-nhap',[AccountController::class,'dangNhap'])->name('dang-nhap')->middleware('guest');
-
+//Đăng xuất
 Route::get('/dang-xuat',[AccountController::class,'dangXuat'])->middleware(['auth','role']);
-//Có trang chủ của người dùng ở dưới cùng á k xài mà độ thêm dô chi. thêm dô nó thành sai route nên k vào đc :v
-///////////////////////////////////////////////////////
+//Quên mật khẩu
+Route::get('/quen-mat-khau',[AccountController::class,'quenMatkhau'])->name('quen-mat-khau')->middleware('guest');
+Route::post('/quen-mat-khau',[AccountController::class,'xulyQuenmatkhau'])->name('xu-ly-quen-mat-khau');
+Route::get('/lay-mat-khau/{account}/{token_password}',[AccountController::class,'layMatkhau'])->name('lay-mat-khau')->middleware('guest');
+Route::post('/lay-mat-khau/{account}',[AccountController::class,'xylylayMatkhau'])->name('xu-ly-lay-mat-khau');
+//
 
 Route::prefix('admin')->middleware(['auth','role'])->group(function(){
     Route::get('/dashboard', function () {
@@ -42,6 +46,12 @@ Route::prefix('admin')->middleware(['auth','role'])->group(function(){
         Route::get('getlistaccounts',[AccountController::class,"getData"])->name('users.datatable');
 
 
+Route::get('/admin/user/danh-sach',[AccountController::class,"index"]);
+Route::get('/admin/user/getlistaccounts',[AccountController::class,"getData"])->name('users.datatable');
+
+
+Route::get('/admin/user/chi-tiet/{id}',[AccountController::class,"show"])->name('chi-tiet-tai-khoan');
+Route::get('/admin/user/them-moi',[AccountController::class,"create"])->name('them-moi-nguoi-dung');
         Route::get('chi-tiet/{id}',[AccountController::class,"show"])->name('chi-tiet-tai-khoan');
         Route::get('them-moi',[AccountController::class,"create"])->name('them-moi-nguoi-dung');
 
@@ -128,18 +138,26 @@ Route::prefix('user')->middleware(['auth','role'])->group(function(){
     Route::get('neighbor/{id}',[UserController::class,'information'])->name('thong-tin-nguoi-dung-khac');
     Route::post('send-message',[UserController::class,'sendMessage'])->name('gui-tin-nhan');
     Route::post('dang-bai',[UserController::class,'storepost'])->name('xu-li-dang-bai');
-    Route::post('sua-bai-dang/{post}',[UserController::class,'editPost'])->name('cap-nhat-bai-dang-cua-nguoi-dung');
+    Route::match(['get','post'],'sua-bai-dang/{post}',[UserController::class,'editPost'])->name('cap-nhat-bai-dang-cua-nguoi-dung');
     Route::post('update-post/{post}',[UserController::class,'updatePost'])->name('xu-li-cap-nhat-bai-dang-cua-nguoi-dung');
     Route::post('delete-post/{post}',[UserController::class,'destroyPost'])->name('xoa-bai-dang-cua-nguoi-dung');
     Route::get('profile-update/{id}',[UserController::class,"edit"])->name('cap-nhat-thong-tin-user');
+    Route::get('profile-user/{id}',[UserController::class,"show"]);
     Route::post('profile-update/{id}',[UserController::class,"update"])->name('xu-li-cap-nhat-thong-tin-user');
     Route::post('follow-post',[UserController::class,"follow"])->name('theo-doi-bai-dang');
+    Route::get('userpost',[UserController::class,"myPost"])->name('trang-ca-nhan');
+    Route::get('post-follow',[UserController::class,"followPost"])->name('trang-bai-theo-doi');
+    Route::post('post-unfollow',[UserController::class,"unfollow"])->name('huy-theo-doi-bai-dang');
+
     // Route::post('report-post/{post}',[UserController::class,"report"])->name('bao-cao-bai-dang');
     Route::post('report-post',[UserController::class,"report"])->name('bao-cao-bai-dang');
     Route::get('message',[MessageController::class,"index"])->name('trang-chu-nhan-tin');
     Route::get('message/{room}',[MessageController::class,"show"])->name('message.detail');
     Route::post('message/send',[MessageController::class,"create"])->name('message.create');
     Route::get('post/founded/{post}/{checked}',[PostController::class,"changeStatusFounded"])->name('post.founded');
+    //Đổi mật khẩu
+    Route::get('doi-mat-khau',[UserController::class,'doimatkhau'])->name('doi-mat-khau');
+     Route::post('doi-mat-khau',[UserController::class,'xulydoimatKhau'])->name('xu-ly-doi-mat-khau');
 
 });
 

@@ -11,10 +11,14 @@ use App\Models\TypePost;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use App\Models\NewsCast;
-use Session;
 use App\Models\PostFollow;
 use App\Models\RoomMessage;
 use App\Models\Message;
+use Session;
+use App\Http\Requests\accountRequest;
+use App\Http\Requests\userPostRequest;
+use App\Http\Requests\changePassword;
+use App\Http\Requests\quenMatkhauRequest;
 
 
 class UserController extends Controller
@@ -26,7 +30,7 @@ class UserController extends Controller
      */
     public function home()
     {
-        $listPost=Post::orderBy('created_at','desc')->get();
+        $listPost=Post::latest()->get();
         return view('user.home',['listPost'=>$listPost]);
     }
     public function searchpost(Request $request){
@@ -54,6 +58,16 @@ class UserController extends Controller
         }
 
     }
+
+    public function unfollow(Request $request)
+    {
+        $postFollow=PostFollow::find($request->follow_post_id);
+        $postFollow->delete();
+            $postFollow->save();
+            return true;
+
+    }
+
     public function index()
     {
         $account=Account::where('username',Session::get('username'))->first();
@@ -69,7 +83,7 @@ class UserController extends Controller
         $listCatalogue=Catalogue::all();
         return view('user.createpost',['listTypePost'=>$listTypePost,'listCatalogue'=>$listCatalogue]);
     }
-    public function storepost(Request $request){
+    public function storepost(userPostRequest $request){
         $account=Account::where('username',Session::get('username'))->first();
 
         $request->merge(['account_id'=>$account->id]);
@@ -108,6 +122,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
+        $account=Account::find($id);
+        return view('user.profile_user',['account'=>$account]);
     }
 
     /**
@@ -127,7 +143,7 @@ class UserController extends Controller
         $listCatalogue=Catalogue::all();
         return view('user.updatepost',['post'=>$post,'listTypePost'=>$listTypePost,'listCatalogue'=>$listCatalogue]);
     }
-    public function updatePost(Request $request,Post $post){
+    public function updatePost(userPostRequest $request,Post $post){
         $post->update($request->all());
         return redirect()->route('trang-chu-nguoi-dung');
     }
@@ -175,7 +191,6 @@ class UserController extends Controller
         return view('user.profile-neighbor',['account'=>$account]);
     }
     public function sendMessage(Request $request){
-
         $message=RoomMessage::where([
             ['first_user',Auth::user()->id],
             ['second_user',$request->send_id],
@@ -203,6 +218,43 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function myPost()
+    {
+
+        $news=NewsCast::where('type_id',2)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $tips=NewsCast::where('type_id',1)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $listMyPost=Post::where('account_id',Auth::user()->id)->latest()->get();
+        //$listPostFollow=PostFollow::where('account_id',$account->id)->get();
+        return view('user.userpost',['listMyPost'=>$listMyPost,'listNews'=>$news,'listTip'=>$tips]);
+    }
+
+    public function followPost()
+    {
+        $account=Account::where('username',Session::get('username'))->first();
+        $news=NewsCast::where('type_id',2)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $tips=NewsCast::where('type_id',1)->orderBy('updated_at','desc')->offset(0)->limit(5)->get();
+        $listPost=Post::get();
+        $listPostFollow=PostFollow::where('account_id',Auth::user()->id)->get();
+
+        return view('user.postfollow',['listPostFollow'=>$listPostFollow,'listNews'=>$news,'listTip'=>$tips,'listPost'=>$listPost]);
+    }
+    public function doimatkhau()
+    {
+        $account=Account::find(Auth::user()->id);
+        return view('password.doimatkhau',['account'=>$account]);
+    }
+    public function xulydoimatkhau(changePassword $request)
+    {
+
+        $account=Account::find(Auth::user()->id);
+        if(Hash::check($request->old_password,$account->password)){
+            $account->update(['password'=>Hash::make($request->new_password)]);
+            return redirect()->back()->with('complete','Thay đổi mật khẩu thành công');
+        }
+        return redirect()->back()->with('error','Mật khẩu cũ không chính xác');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

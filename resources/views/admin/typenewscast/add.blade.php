@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+<h2>THÊM MỚI LOẠI BẢN TIN</h2>
 @if (session('error'))
 <div class="alert alert-warning">{{session('error')}}</div>
 @endif
@@ -8,13 +9,18 @@
     @csrf
     <div class="form-group">
         <label for="name">Tên loại bản tin</label>
-        <input type="text" class="form-control"  placeholder="Tên" name="name" required>
+        <input type="text" class="form-control"  placeholder="Tên" name="name">
+        @if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{$error}}</div>
+    @endforeach
+    @endif
     </div>
     <div class="form-group">
         <label for="description">Mô tả</label>
         <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Thêm mới</button>
+    <button type="submit" class="btn btn-primary" style="margin: 0px 0px 10px 0">Xác nhận</button>
 </form>
-<a href="/admin/type-news-cast/danh-sach">< Back</a>
+<a href="/admin/type-news-cast/danh-sach">< Quay lại</a>
 @endsection

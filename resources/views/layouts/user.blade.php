@@ -93,7 +93,7 @@
 
 		if ($.isFunction($.fn.toast)) {
 			$.toast({
-				heading: 'Welcome To Pitnik',
+				heading: 'Welcome To ChaoWeb',
 				text: '',
 				showHideTransition: 'slide',
 				icon: 'success',

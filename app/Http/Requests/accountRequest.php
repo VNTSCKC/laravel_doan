@@ -30,7 +30,8 @@ class accountRequest extends FormRequest
             'email'=>'bail|required|email',
             'phone'=>'digits_between:10,12',
             'imageupload'=>'image',
-            //'address'=>'regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+',
+            'address'=>'required',
+            //'address'=>'regex:/[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+',
 
         ];
     }
@@ -44,6 +45,7 @@ class accountRequest extends FormRequest
             //'phone.numeric'=>'Số điện thoại sai định dạng',
            'phone.digits_between'=>'Số điện thoại chỉ 10-12 ký số',
            //'address.regex'=>'sai dia chi',
+           'address.required'=>'Không được để trống địa chỉ',
            'imageupload.image'=>'Định dạng hình ảnh không được hỗ trợ. Vui lòng chọn lại Ảnh đại diện',
             
         ];

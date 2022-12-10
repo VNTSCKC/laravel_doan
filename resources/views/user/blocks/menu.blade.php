@@ -1,6 +1,6 @@
 <div class="topbar stick">
     <div class="logo">
-        <a title="" href="#"><img src="images/logo.png" alt=""></a>
+        <a title="" href="{{route('trang-chu-nguoi-dung')}}"><img style="width:50px; height:50px;" src="{{asset('images/chao.jpg')}}" alt=""></a>
     </div>
     <div class="top-area">
         <div class="main-menu">
@@ -18,7 +18,7 @@
          </div>
         <ul class="setting-area">
             <li><a href="#" title="Home" data-ripple=""><i class="fa fa-home"></i></a></li>
-           
+
 
 
                 <a href="/user/message" title="Messages" data-ripple="" style="font-size: 20px; margin:0px 10px 0px 10px;"><i class="fa fa-commenting" style="color: #999; "></i></a>
@@ -270,9 +270,9 @@
         <div class="user-img">
             <h5>{{Auth::user()->name}}</h5>
             @if (Auth::user()->image)
-            <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
+            <img  style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/{{Auth::user()->image}}" alt="">
             @else
-            <img style="width:50px; height:50px;" src="{{ url('/') }}/images/UserImages/avt.png" alt="">
+            <img  style="width:50px; height:50px; object-fit:cover;" src="{{ url('/') }}/images/UserImages/avt.png" alt="">
             @endif
 
             <span class="status f-online"></span>
@@ -285,10 +285,10 @@
                 </ul>
                 <span class="seting-title">User setting <a href="#" title="">see all</a></span>
                 <ul class="log-out">
-                    <li><a href="about.html" title=""><i class="ti-user"></i> view profile</a></li>
-                    <li><a href="profile-update/{{Auth::user()->id}}" title=""><i class="ti-pencil-alt"></i>edit profile</a></li>
-                    <li><a href="#" title=""><i class="ti-target"></i>activity log</a></li>
-                    <li><a href="setting.html" title=""><i class="ti-settings"></i>account setting</a></li>
+                    {{-- <li><a href="about.html" title=""><i class="ti-user"></i> view profile</a></li> --}}
+                    <li><a href="/user/profile-update/{{Auth::user()->id}}" title=""><i class="ti-pencil-alt"></i>Cập nhật thông tin</a></li>
+                    <li><a href="/user/doi-mat-khau" title=""><i class="ti-target"></i>Đổi mật khẩu</a></li>
+                    {{-- <li><a href="setting.html" title=""><i class="ti-settings"></i>account setting</a></li> --}}
                     <li><a href="/dang-xuat" title=""><i class="ti-power-off"></i>đăng xuất</a></li>
                 </ul>
             </div>

@@ -6,9 +6,9 @@
 <p>Địa chỉ: {{$account->address}}</p>
 <p>Ngày sinh: {{$account->dateofbirth}}</p>
 @if ($account->position=="admin")
-<p>Position: Quản trị viên</p>
+<p>Cạp bậc: Quản trị viên</p>
 @else
-<p>Position: Người dùng</p>
+<p>Cấp bậc: Người dùng</p>
 @endif
 @if ($account->status_post==true)
 <p>Trạng thái đăng bài: Cho phép</p>

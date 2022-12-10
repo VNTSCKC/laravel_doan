@@ -47,16 +47,27 @@
         <div class="form-group">
             <label for="exampleInput">Chủ đề</label>
             <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$post->title}}">
+            @error('title')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Nội dung</label>
             <textarea name="content" id="content">{!!$post->content!!}</textarea>
+            @error('content')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group">
             <label for="exampleInputLocation">Địa chỉ</label>
             <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" value="{{$post->location}}">
+            @error('location')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
         </div>
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <button type="submit" class="btn btn-primary" >Cập nhật</button>
+        <a href="{{route('trang-chu-nguoi-dung')}}" class="btn btn-outline-primary">< Quay lại</a>
+
     </form>
 </div>
 @endsection
@@ -131,8 +142,8 @@ $(document).ready(function(){
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
     Swal.fire('Thay đổi thành công!', '', 'Hoàn tất').then((result)=>{
-    $.post(frmAction);
-    e.currentTarget.submit();})
+      e.currentTarget.submit();
+    })
 
     } else if (result.isDenied) {
     Swal.fire('Hủy cập nhật', '', 'Thông báo').then((result)=> window.location.replace("/user/trang-chu"));

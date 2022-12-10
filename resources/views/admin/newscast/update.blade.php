@@ -14,6 +14,8 @@
 @endsection
 
 @section('content')
+<h2>CẬP NHẬT THÔNG TIN BÀI ĐĂNG</h2>
+
 <form action="{{route('xu-li-cap-nhat-ban-tin',['id'=>$newsCast->id])}}" method="post" enctype="multipart/form-data" id="update-newscast">
     @csrf
     <div class="form-group">
@@ -43,15 +45,25 @@
 
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
-        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$newsCast->title}}" required>
+        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$newsCast->title}}">
+        @error('title')
+        <div style="color:red">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
         <textarea name="content" id="content" value="{!!$newsCast->content!!}"></textarea>
+        @error('content')
+        <div style="color:red">{{ $message }}</div>
+        @enderror
     </div>
     <div class="mb-3">
+
         <label for="formFile" class="form-label">Hình ảnh chủ đề</label>
-        <input class="form-control" type="file" id="formFile" name="imageupload" value="{{$newsCast->image}}" >
+        <input class="form-control" type="file" id="formFile" name="imageupload" value="{{$newsCast->image}}">
+        @error('imageupload')
+        <div style="color:red">{{ $message }}</div>
+        @enderror
     </div>
     <button type="submit" class="btn btn-primary">Cập nhật</button>
 </form>
@@ -130,7 +142,7 @@
       Swal.fire('Hủy cập nhật', '', 'Thông báo').then((result)=> window.location.replace("/admin/news-cast/danh-sach/meo-tim-do"));
       }
       })
-      })  
+      })
   })
 </script>
 @endsection

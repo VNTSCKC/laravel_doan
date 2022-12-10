@@ -74,7 +74,7 @@
 
                             </div><!-- Weather Widget -->
                         </div><!-- weather widget-->
-                        <div class="widget whitish low-opacity">
+                        <!-- <div class="widget whitish low-opacity">
                             <div style="background-image: url({{ asset('user/images/resources/dob2.png') }})"
                                 class="bg-image"></div>
                             <div class="dob-head">
@@ -91,7 +91,7 @@
                                 <h6><a href="#" title="">Lucy Carbel</a> valentine's birthday</h6>
                                 <p>leave a message with your best wishes on his profile.</p>
                             </div>
-                        </div><!-- birthday widget -->
+                        </div>birthday widget -->
                     </aside>
                 </div><!-- sidebar -->
                 <div class="col-lg-6">

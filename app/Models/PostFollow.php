@@ -12,4 +12,8 @@ class PostFollow extends Model
     use SoftDeletes;
     protected $table='post_follow';
     protected $fillable=['post_id','account_id'];
+
+    public function baiduocfl(){
+        return $this->belongsTo(Post::class,'post_id','id');
+    }
 }

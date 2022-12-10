@@ -15,6 +15,8 @@
 
 @endsection
 @section('content')
+<h2>CẬP NHẬT THÔNG TIN BÀI ĐĂNG</h2>
+
 <form action="{{route('xu-li-cap-nhat-bai-dang',['id'=>$post->id])}}" method="post" enctype="multipart/form-data" id="update-post">
     @csrf
     <div class="form-group">
@@ -73,19 +75,31 @@
         <label class="form-check-label" for="flexCheckDefault" >
           <p style="margin-top: 15px;">Đã tìm thấy</p>
         </label>
+        @error('title')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
     @endif
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
-        <textarea name="content" id="content" required>{!!$post->content!!}</textarea>
+        <textarea name="content" id="content" >{!!$post->content!!}</textarea>
+        @error('content')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
     <div class="form-group">
         <label for="exampleInputLocation">Địa chỉ</label>
-        <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" value="{{$post->location}}" required>
+        <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" value="{{$post->location}}">
+        @error('location'
+        )
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
 
     <br>
     <button type="submit" class="btn btn-primary" >Cập nhật</button>
+    <a href="{{route('trang-chu-nguoi-dung')}}" class="btn btn-outline-primary">< Quay lại</a>
+
 </form>
 @endsection
 @section('js')

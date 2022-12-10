@@ -28,9 +28,9 @@
                                 </div>
                                 <div class="weather-infos">
                                     <span class="weather-tem">25</span>
-                                    <h3>Cloudy Skyes<i>Sicklervilte, New Jersey</i></h3>
+                                    <h3>Cloudy Skyes<i>Tp. Ho Chi Minh, Viet Nam</i></h3>
                                     <div class="weather-date skyblue-bg">
-                                        <span>MAY<strong>21</strong></span>
+                                        <span>DEC<strong>13</strong></span>
                                     </div>
                                 </div>
                                 <div class="monthly-weather">
