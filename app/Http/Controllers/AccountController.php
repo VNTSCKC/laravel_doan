@@ -190,6 +190,10 @@ class AccountController extends Controller
     }
     public function xuliDangKy(dangkyRequest $request)
     {
+        $exist=Account::where('username',$request->username)->orWhere('email',$request->email)->first();
+        if($exist){
+            return redirect()->back()->with('error','Tài khoản hoặc email đã được sử dụng');
+        }
         if($account=Account::create(
             [
                 'username'=>$request->username,

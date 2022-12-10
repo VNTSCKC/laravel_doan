@@ -3,6 +3,11 @@
 <div class="row">
     <div class="col-8">
         <h1>Chủ đề: {{$post->title}}</h1>
+        @if ($post->founded)
+        <span class="badge badge-success" style="background-color: rgb(13, 147, 13);color:white;">Đã tìm được</span>
+        @else
+        <span class="badge badge-secondary" style="background-color: rgb(111, 111, 111); color:white;">Chưa tìm thấy</span>
+        @endif
         <p><strong>Loại bài đăng: </strong>{{$post->loaiBaiDang->name}}</p>
         <p><strong>Danh mục tìm đồ: </strong>{{$post->loaiDo->name}}</p>
         <p><strong>Người đăng: </strong>{{$post->nguoiDang->name}}</p>

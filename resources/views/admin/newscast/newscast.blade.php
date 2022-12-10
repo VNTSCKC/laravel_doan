@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 @section('css')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
 @section('content')
 @if (session('success_add'))
@@ -69,5 +75,49 @@
             ]
         });
     });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#news-casts-table tbody').on("click",".delete-newscast",function(e){
+            e.preventDefault(e);
+            var href=$(this).attr('href')
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: 'Bạn có chắc?',
+            text: "Bản tin này sẽ bị xóa!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Chắc, xóa đi!',
+            cancelButtonText: 'Chưa, suy nghĩ đã!',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+            'Đã xóa!',
+            'Bản tin đã được xóa.',
+            'Hoàn tất'
+            )
+
+            window.location.replace(href)
+            } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+            ) {
+            swalWithBootstrapButtons.fire(
+            'Đã hủy thao tác',
+            'Bản tin còn nguyên :)',
+            'Lỗi'
+            )
+            }
+            })
+        })
+    })
 </script>
 @endsection

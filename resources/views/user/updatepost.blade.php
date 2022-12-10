@@ -118,7 +118,7 @@ $(document).ready(function(){
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
     });
-    $('#update-post').click(function(e){
+    $('#update-post').submit(function(e){
     e.preventDefault(e);
     var frmAction=this.action;
     Swal.fire({

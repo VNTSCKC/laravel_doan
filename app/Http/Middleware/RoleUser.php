@@ -27,6 +27,7 @@ class RoleUser
                 return redirect('/user/trang-chu');
             }
         }
+        
         return $next($request);
     }
 }

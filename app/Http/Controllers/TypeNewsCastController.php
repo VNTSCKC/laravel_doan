@@ -50,6 +50,9 @@ class TypeNewsCastController extends Controller
      */
     public function store(Request $request)
     {
+        if(TypeNewsCast::where('name',$request->name)->first()){
+            return redirect()->back()->with('error','Đã có loại bản tin này rồi');
+        }
         if(TypeNewsCast::create($request->all())){
             return redirect('admin/type-news-cast/danh-sach')->with('success_add','Thêm loại bản tin thành công');
         }
@@ -88,6 +91,9 @@ class TypeNewsCastController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(TypeNewsCast::where('name',$request->name)->where('id','<>',$id)->first()){
+            return redirect()->back()->with('error','Đã có loại bản tin này rồi');
+        }
         $typeNewsCast=TypeNewsCast::find($id);
         if($typeNewsCast->update($request->all())){
             $typeNewsCast->save();

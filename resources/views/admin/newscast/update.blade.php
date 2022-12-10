@@ -1,7 +1,8 @@
 
 @extends('layouts.admin')
 @section('css')
-@section('css')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
@@ -11,9 +12,9 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 @endsection
-@endsection
+
 @section('content')
-<form action="{{route('xu-li-cap-nhat-ban-tin',['id'=>$newsCast->id])}}" method="post" enctype="multipart/form-data">
+<form action="{{route('xu-li-cap-nhat-ban-tin',['id'=>$newsCast->id])}}" method="post" enctype="multipart/form-data" id="update-newscast">
     @csrf
     <div class="form-group">
         <label for="type_id">Tài khoản đăng</label>
@@ -42,7 +43,7 @@
 
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
-        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$newsCast->title}}">
+        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$newsCast->title}}" required>
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
@@ -50,9 +51,9 @@
     </div>
     <div class="mb-3">
         <label for="formFile" class="form-label">Hình ảnh chủ đề</label>
-        <input class="form-control" type="file" id="formFile" name="imageupload" value="{{$newsCast->image}}">
+        <input class="form-control" type="file" id="formFile" name="imageupload" value="{{$newsCast->image}}" >
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
 </form>
 @endsection
 @section('js')
@@ -104,5 +105,32 @@
     });
 
 });
+</script>
+<script>
+  $(document).ready(function(){
+      $.ajaxSetup({
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+      });
+      $('#update-newscast').submit(function(e){
+      e.preventDefault(e);
+      Swal.fire({
+      title: 'Bạn có muốn cập nhật lại bản tin?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Cập nhật',
+      denyButtonText: `Không `,
+      }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+      Swal.fire('Thay đổi thành công!', '', 'Hoàn tất').then((result)=>{
+      e.currentTarget.submit();})
+      } else if (result.isDenied) {
+      Swal.fire('Hủy cập nhật', '', 'Thông báo').then((result)=> window.location.replace("/admin/news-cast/danh-sach/meo-tim-do"));
+      }
+      })
+      })  
+  })
 </script>
 @endsection

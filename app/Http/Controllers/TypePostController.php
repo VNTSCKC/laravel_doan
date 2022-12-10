@@ -49,6 +49,9 @@ class TypePostController extends Controller
      */
     public function store(Request $request)
     {
+        if(TypePost::where('name',$request->name)->first()){
+            return redirect()->back()->with('error','Đã có loại bài đăng này rồi');
+        }
         if(TypePost::create($request->all())){
             return redirect('admin/type-post/danh-sach')->with('success_add','Thêm loại bài đăng thành công');
         }
@@ -87,6 +90,9 @@ class TypePostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(TypePost::where('name',$request->name)->where('id','<>',$id)->first()){
+            return redirect()->back()->with('error','Đã có loại bài đăng này rồi');
+        }
         $typePost=TypePost::find($id);
         if($typePost->update($request->all())){
             $typePost->save();

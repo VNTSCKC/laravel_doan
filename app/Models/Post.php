@@ -22,6 +22,7 @@ class Post extends Model
         "content",
         "image",
         "location",
+        "founded",
     ];
     public function nguoiDang(){
         return $this->belongsTo(Account::class,'account_id','id');

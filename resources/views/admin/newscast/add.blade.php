@@ -37,17 +37,17 @@
     </div>
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
-        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title">
+        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" required>
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
-        <textarea name="content" id="content"></textarea>
+        <textarea name="content" id="content" ></textarea >
     </div>
     <div class="mb-3">
         <label for="formFile" class="form-label">Hình ảnh chủ đề</label>
-        <input class="form-control" type="file" id="formFile" name="imageupload">
+        <input class="form-control" type="file" id="formFile" name="imageupload" required>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
 </form>
 @endsection
 @section('js')

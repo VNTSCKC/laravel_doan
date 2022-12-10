@@ -46,7 +46,7 @@ class NewsCastController extends Controller
         ->addColumn('action',function($newsCast){
             return '<a class="btn btn-info" href="'.route('chi-tiet-ban-tin',$newsCast->id).'">Chi tiết</a>
             <a class="btn btn-secondary" href="'.route('cap-nhat-ban-tin',$newsCast->id).'">Sửa</a>
-            <a class="btn btn-danger" href="/admin/news-cast/xoa/'.$newsCast->id.'">Xóa</a>';
+            <a class="btn btn-danger delete-newscast" href="/admin/news-cast/xoa/'.$newsCast->id.'">Xóa</a>';
         })
         ->editColumn('title',function($newsCast){
             return $newsCast->title;

@@ -31,7 +31,7 @@
 
 
                         <a href="{{route('message.detail',['room'=>$roomMessage->id])}}" class="list-group-item list-group-item-action border-0">
-                            <div class="badge bg-success float-right">5</div>
+                            {{-- <div class="badge bg-success float-right">5</div> --}}
                             <div class="d-flex align-items-start">
                                 @if ($roomMessage->first_user==Auth::user()->id)
                                 <img src="{{ URL::to('/') }}/images/UserImages/{{App\Models\Account::where('id',$roomMessage->second_user)->first()->image}}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
@@ -73,7 +73,7 @@
         </div>
     </main>
     <script>
-        
+
     </script>
 </body>
 </html>

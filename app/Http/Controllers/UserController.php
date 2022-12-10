@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\NewsCast;
 use Session;
 use App\Models\PostFollow;
+use App\Models\RoomMessage;
+use App\Models\Message;
 
 
 class UserController extends Controller
@@ -168,7 +170,39 @@ class UserController extends Controller
         if(Report::create(['post_id'=>$request->report_id,'account_id'=>Auth::user()->id,'content'=>$request->content]))
             return true;
     }
+    public function information($id){
+        $account=Account::where('id',$id)->first();
+        return view('user.profile-neighbor',['account'=>$account]);
+    }
+    public function sendMessage(Request $request){
 
+        $message=RoomMessage::where([
+            ['first_user',Auth::user()->id],
+            ['second_user',$request->send_id],
+          ])->orWhere(function($query) use($request){
+            $query->where('second_user',Auth::user()->id)->where('first_user',$request->send_id);
+          })->first();
+        if(!$message){
+            if($room=RoomMessage::create([
+                'first_user'=>Auth::user()->id,
+                'second_user'=>$request->send_id,
+            ])){
+                Message::create([
+                    'room_id'=>$room->id,
+                    'send_id'=>Auth::user()->id,
+                    'receive_id'=>$request->send_id,
+                    'content'=>$request->content,
+                ]);
+            }
+        }else{
+            Message::create([
+                'room_id'=>$message->id,
+                'send_id'=>Auth::user()->id,
+                'receive_id'=>$request->send_id,
+                'content'=>$request->content,
+            ]);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -56,16 +56,35 @@
 
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
-        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$post->title}}">
+        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$post->title}}" required>
     </div>
+    @if($post->founded)
+
+
+    <div class="form-check" style="margin-left: 23px">
+        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="checked_founded" checked>
+        <label class="form-check-label" for="flexCheckDefault" >
+          <p style="margin-top: 15px;">Đã tìm được</p>
+        </label>
+    </div>
+    @else
+    <div class="form-check" style="margin-left: 23px">
+        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="checked_founded">
+        <label class="form-check-label" for="flexCheckDefault" >
+          <p style="margin-top: 15px;">Đã tìm thấy</p>
+        </label>
+    </div>
+    @endif
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
-        <textarea name="content" id="content" >{!!$post->content!!}</textarea>
+        <textarea name="content" id="content" required>{!!$post->content!!}</textarea>
     </div>
     <div class="form-group">
         <label for="exampleInputLocation">Địa chỉ</label>
-        <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" value="{{$post->location}}">
+        <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" value="{{$post->location}}" required>
     </div>
+
+    <br>
     <button type="submit" class="btn btn-primary" >Cập nhật</button>
 </form>
 @endsection
@@ -126,7 +145,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
-        $('#update-post').click(function(e){
+        $('#update-post').submit(function(e){
         e.preventDefault(e);
         Swal.fire({
         title: 'Bạn có muốn cập nhật lại bài đăng?',

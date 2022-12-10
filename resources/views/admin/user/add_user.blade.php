@@ -8,7 +8,7 @@
 <form action="{{route('xu-li-them-moi-nguoi-dung')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-        <label for="username">Username</label>
+        <label for="username" >Username</label>
         <input type="text" class="form-control"  placeholder="Username" name="username" required>
     </div>
     <div class="form-group">
@@ -51,7 +51,7 @@
           Cho phép đăng bài
         </label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
 </form>
 <a href="/admin/user/danh-sach">< Back</a>
 @endsection

@@ -246,28 +246,41 @@
                                 <div class="user-post">
                                     <div class="friend-info">
                                         <figure>
+                                            @if($post->account_id!=Auth::user()->id)
                                             @if( !$post->nguoiDang->image)
+                                            <a href="/user/neighbor/{{$post->account_id}}">
                                                 <img src="{{ URL::to('/') }}/images/UserImages/avt.png"
                                                 alt="">
-
+                                            </a>
                                             @else
-                                            <img src="{{ URL::to('/') }}/images/UserImages/{{ $post->nguoiDang->image }}"
-                                                alt="">
+                                        <a href="/user/neighbor/{{$post->account_id}}"><img src="{{ URL::to('/') }}/images/UserImages/{{ $post->nguoiDang->image }}"
+                                            alt=""></a>
+                                         @endif
+                                         @else
+                                         @if( !$post->nguoiDang->image)
+                                             <img src="{{ URL::to('/') }}/images/UserImages/avt.png"
+                                             alt="">
+
+                                         @else
+                                    <img src="{{ URL::to('/') }}/images/UserImages/{{ $post->nguoiDang->image }}"
+                                         alt="">
+                                      @endif
                                          @endif
                                         </figure>
                                         <div class="friend-name">
                                             <div class="more">
                                                 <div class="more-post-optns"><i class="ti-more-alt"></i>
                                                     <ul>
-                                                        @if ($post->nguoiDang->username == Session::get('username'))
+                                                        @if ($post->nguoiDang->id == Auth::user()->id)
+
                                                             <form
                                                                 action="{{ route('cap-nhat-bai-dang-cua-nguoi-dung', ['post' => $post->id]) }}"
                                                                 method="post">
                                                                 @csrf
-                                                                <li><i class="fa fa-pencil-square-o"></i>
+                                                                <li><i class="fa fa-pencil-square-o" style="color: black"></i>
                                                                     <input type="submit" value="Sửa bài viết"
                                                                         class="border-0"
-                                                                        style="background-color: transparent">
+                                                                        style="background-color: transparent; margin:0px 0px 0px 10px; font-size:0.9em;">
                                                                 </li>
                                                             </form>
                                                             <form
@@ -275,17 +288,31 @@
                                                                 method="post" class="delete-post">
                                                                 @csrf
                                                                 <li>
-                                                                    <i class="fa fa-trash-o"></i>
+                                                                    <i class="fa fa-trash-o" style="color: black"></i>
                                                                     <input id="{{$post->id}}" type="submit" value="Xóa bài viết"
                                                                         class="border-0"
-                                                                        style="background-color: transparent">
+                                                                        style="background-color: transparent; margin:0px 0px 0px 12px; font-size:0.9em;">
                                                                 </li>
                                                             </form>
+                                                            @if ($post->founded==false)
+                                                            <li >
+                                                                <i class='fa fa-check'></i>
+                                                                <a href="{{route('post.founded',['post'=>$post->id,'checked'=>true])}}" style="margin-left: 7px; color:black;">Đã tìm được</a>
+
+                                                            </li>
+                                                            @else
+                                                            <li>
+                                                                <i class='fa fa-close'></i>
+                                                                <a href="{{route('post.founded',['post'=>$post->id,'checked'=>0])}}" style="margin-left: 7px; color:black;">Chưa tìm thấy</a>
+
+                                                            </li>
+                                                            @endif
+
                                                         @endif
                                                         <li>    <i class="fa fa-flag"></i>   <input  id="post_{{$post->id}}" type="button" value="Báo cáo bài viết"
                                                             class="border-0 report-post"
                                                             style="background-color: transparent"></li>
-                                                        @if ($post->nguoiDang->username != Auth::user()->username)
+                                                        @if ($post->nguoiDang->id != Auth::user()->id)
                                                             @php
 
                                                                 $flag = false;
@@ -316,17 +343,23 @@
                                                 </div>
                                             </div>
                                             <ins><a href="time-line.html" title="">{{ $post->nguoiDang->name }}</a>
-                                                {{ $post->loaiBaiDang->name }}/{{ $post->loaiDo->name }}</ins>
+                                                {{ $post->loaiBaiDang->name }}/{{ $post->loaiDo->name }}       @if ($post->founded ==false )
+                                                <span class="badge badge-secondary">Chưa tìm thấy</span>
+                                            @else
+                                            <span class="badge badge-success">Đã tìm được</span>
+                                            @endif</ins>
                                             <span><i class="fa fa-globe"></i> Ngày đăng: {{ $post->created_at }}</span>
                                             @if ($post->updated_at != null && $post->created_at != $post->updated_at)
-                                                <span></i> Đã chỉnh sửa</span>
+                                                <span>Đã chỉnh sửa</span>
                                             @endif
+
                                         </div>
                                         <div class="post-meta" style="text-transform: none;">
                                             <h1>{{ $post->title }}</h1>
                                             <p>
                                                 {!! $post->content !!}
                                             </p>
+                                            <p style="color: black">Địa điểm: {{$post->location}}</p>
                                             {{-- <figure>
                                             <div class="img-bunch">
                                                 <div class="row">
@@ -442,6 +475,10 @@
     <script>
 
         $(document).ready(function() {
+            $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }})
             // $('#tim-kiem-form').submit(function(e){
             //     e.preventDefault(e);
             //     return false;
@@ -508,7 +545,7 @@
                 }else{
                     $follow_post_id=$(this).attr('id').slice(12);
                     $(this).val("Theo dỗi bài viết")
-                    alert($follow_post_id);
+                    
                     $type=0;
                     $.post('/user/follow-post',{follow_post_id:$follow_post_id,type:$type}).done(function(){
                         Swal.fire({

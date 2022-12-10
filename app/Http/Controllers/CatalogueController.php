@@ -40,6 +40,7 @@ class CatalogueController extends Controller
      */
     public function create()
     {
+
         return view('admin.item.catalogue.add');
     }
 
@@ -51,6 +52,10 @@ class CatalogueController extends Controller
      */
     public function store(Request $request)
     {
+        $exist=Catalogue::where('name',$request->name)->first();
+        if($exist){
+            return redirect()->back()->with('error','Đã có danh mục này rồi');
+        }
         $catalogue=new Catalogue;
         $catalogue->name=$request->name;
         $catalogue->save();
@@ -90,6 +95,10 @@ class CatalogueController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $exist=Catalogue::where('name',$request->name)->where('id','<>',$request->id)->first();
+        if($exist){
+            return redirect()->back()->with('error','Đã có danh mục này rồi');
+        }
         $catalogue=Catalogue::find($id);
         $catalogue->name=$request->name;
         $catalogue->save();

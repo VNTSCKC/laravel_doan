@@ -28,7 +28,7 @@ class PostController extends Controller
         ->addColumn('action',function($post){
             return '<a class="btn btn-info" href="'.route('chi-tiet-bai-dang',$post->id).'">Chi tiết</a>
             <a class="btn btn-secondary" href="'.route('cap-nhat-bai-dang',$post->id).'">Sửa</a>
-            <a class="btn btn-danger" href="/admin/post/xoa/'.$post->id.'">Xóa</a>';
+            <a class="btn btn-danger delete-post" href="/admin/post/xoa/'.$post->id.'">Xóa</a>';
         })
         ->editColumn('title',function($post){
             return $post->title;
@@ -119,6 +119,15 @@ class PostController extends Controller
             $file->move(public_path('images/post'),$file_name);
             $request->merge(['image'=>$file_name]);
         }
+        if($request->has('checked_founded')){
+            if($request->checked_founded=="on"){
+                $request->merge(['founded'=>true]);
+            }
+        }
+        else{
+            $request->merge(['founded'=>false]);
+        }
+
         if($post->update($request->all())){
             $post->save();
             return redirect('admin/post/danh-sach')->with('success_update','Cập nhật bài đăng thành công');
@@ -144,5 +153,12 @@ class PostController extends Controller
         return response()->json([
             'content' => $report->content
         ]);
+    }
+    public function changeStatusFounded(Post $post,$checked){
+        $post->update([
+            'founded'=>$checked
+        ]);
+        $post->save();
+        return redirect()->route('trang-chu-nguoi-dung');
     }
 }

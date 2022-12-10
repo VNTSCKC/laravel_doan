@@ -42,7 +42,7 @@
             <label for="exampleInputLocation">Địa chỉ</label>
             <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Đăng bài</button>
     </form>
 </div>
 @endsection

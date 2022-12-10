@@ -121,10 +121,12 @@ Route::prefix('admin')->middleware(['auth','role'])->group(function(){
 Route::get('/',[UserController::class,'home'])->name('home')->middleware('guest');// Đây nè
 
 Route::prefix('user')->middleware(['auth','role'])->group(function(){
+
     Route::get('trang-chu',[UserController::class,'index'])->name('trang-chu-nguoi-dung');// Đây nè
     Route::get('tim-kiem',[UserController::class,'searchpost'])->name('tim-kiem-bai-dang');
     Route::get('dang-bai',[UserController::class,'createpost'])->name('dang-bai');
-
+    Route::get('neighbor/{id}',[UserController::class,'information'])->name('thong-tin-nguoi-dung-khac');
+    Route::post('send-message',[UserController::class,'sendMessage'])->name('gui-tin-nhan');
     Route::post('dang-bai',[UserController::class,'storepost'])->name('xu-li-dang-bai');
     Route::post('sua-bai-dang/{post}',[UserController::class,'editPost'])->name('cap-nhat-bai-dang-cua-nguoi-dung');
     Route::post('update-post/{post}',[UserController::class,'updatePost'])->name('xu-li-cap-nhat-bai-dang-cua-nguoi-dung');
@@ -137,6 +139,7 @@ Route::prefix('user')->middleware(['auth','role'])->group(function(){
     Route::get('message',[MessageController::class,"index"])->name('trang-chu-nhan-tin');
     Route::get('message/{room}',[MessageController::class,"show"])->name('message.detail');
     Route::post('message/send',[MessageController::class,"create"])->name('message.create');
+    Route::get('post/founded/{post}/{checked}',[PostController::class,"changeStatusFounded"])->name('post.founded');
 
 });
 

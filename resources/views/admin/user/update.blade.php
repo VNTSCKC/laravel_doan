@@ -51,7 +51,7 @@
             Cho phép đăng bài
         </label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
   </form>
   <a href="/admin/user/danh-sach">< Back</a>
 @endsection

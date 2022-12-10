@@ -11,7 +11,7 @@
 	<title>Website Tìm đồ thất lạc</title>
     @yield('css')
     <link rel="icon" href="{{asset('user/images/fav.png')}}" type="image/png" sizes="16x16">
-
+    <link href="{{asset('font-awesome/css/all.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('user/css/main.min.css')}}">
 	<link rel="stylesheet" href="{{asset('user/css/weather-icons.min.css')}}">
 	<link rel="stylesheet" href="{{asset('user/css/toast-notification.css')}}">

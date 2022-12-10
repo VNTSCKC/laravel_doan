@@ -44,17 +44,17 @@
     </div>
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
-        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title">
+        <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" required>
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
-        <textarea name="content" id="content"></textarea>
+        <textarea name="content" id="content" required></textarea>
     </div>
     <div class="form-group">
         <label for="exampleInputLocation">Địa chỉ</label>
-        <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location">
+        <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" required>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
 </form>
 @endsection
 @section('js')
