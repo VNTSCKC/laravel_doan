@@ -16,6 +16,7 @@
 
 @endsection
 @section('content')
+<h2>THÊM BÀI ĐĂNG</h2>
 <form action="{{route('xu-li-them-moi-bai-dang')}}" method="post" enctype="multipart/form-data" id="add-post">
     @csrf
     <div class="form-group">
@@ -45,16 +46,26 @@
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
         <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title">
+        @error('title')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
-        <textarea name="content" id="content"></textarea>
+        <textarea name="content" id="content" value="kem hinh anh"></textarea>
+        @error('content')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
     <div class="form-group">
         <label for="exampleInputLocation">Địa chỉ</label>
         <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location">
+        @error('location')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{route('trang-chu-nguoi-dung')}}" class="btn btn-outline-primary">< Quay lại</a>
+    <button type="submit" class="btn btn-primary">Đăng bài</button>
 </form>
 @endsection
 @section('js')

@@ -33,7 +33,7 @@ class newsCastRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required'=>'Không được để trống Tên bản tin',
+            'title.required'=>'Không được để trống Chủ đề',
             'content.required'=>'Không được để trống Nội dung',
            'imageupload.required'=>'Không được để trống Ảnh',
            'imageupload.image'=>'Định dạng hình ảnh không được hỗ trợ. Vui lòng chọn lại Ảnh',           

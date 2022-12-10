@@ -41,7 +41,6 @@ class NewsCastController extends Controller
         if($type=="tin-tuc"){
             $newsCasts=NewsCast::where('type_id','2')->get();
         }
-
         return Datatables::of($newsCasts)
         ->addIndexColumn()
         ->addColumn('action',function($newsCast){

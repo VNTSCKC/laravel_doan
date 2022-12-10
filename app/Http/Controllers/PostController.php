@@ -9,6 +9,8 @@ use App\Models\TypePost;
 use App\Models\Catalogue;
 use App\Models\Report;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\userPostRequest;
+
 
 class PostController extends Controller
 {
@@ -67,7 +69,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(userPostRequest $request)
     {
 
         if(Post::create($request->all())){
@@ -110,7 +112,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(userPostRequest $request, $id)
     {
         $post=Post::find($id);
         if($request->has('imageupload')){

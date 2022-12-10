@@ -45,16 +45,26 @@
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
         <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$newsCast->title}}">
+        @error('title')
+        <div style="color:red">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
         <textarea name="content" id="content" value="{!!$newsCast->content!!}"></textarea>
+        @error('content')
+        <div style="color:red">{{ $message }}</div>
+        @enderror
     </div>
     <div class="mb-3">
+      
         <label for="formFile" class="form-label">Hình ảnh chủ đề</label>
         <input class="form-control" type="file" id="formFile" name="imageupload" value="{{$newsCast->image}}">
+        @error('imageupload')
+        <div style="color:red">{{ $message }}</div>
+        @enderror
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
 </form>
 @endsection
 @section('js')

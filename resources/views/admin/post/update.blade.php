@@ -15,13 +15,9 @@
 
 @endsection
 @section('content')
-<<<<<<< HEAD
 <h2>CẬP NHẬT THÔNG TIN BÀI ĐĂNG</h2>
 
-<form action="{{route('xu-li-cap-nhat-bai-dang',['id'=>$post->id])}}" method="post" enctype="multipart/form-data">
-=======
 <form action="{{route('xu-li-cap-nhat-bai-dang',['id'=>$post->id])}}" method="post" enctype="multipart/form-data" id="update-post">
->>>>>>> minh_hung
     @csrf
     <div class="form-group">
         <label for="type_id">Tài khoản đăng</label>
@@ -63,16 +59,28 @@
     <div class="form-group">
         <label for="exampleInput">Chủ đề</label>
         <input type="text" class="form-control" id="exampleInput"  placeholder="Chủ đề" name="title" value="{{$post->title}}">
+        @error('title')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Nội dung</label>
         <textarea name="content" id="content" >{!!$post->content!!}</textarea>
+        @error('content')
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
     <div class="form-group">
         <label for="exampleInputLocation">Địa chỉ</label>
         <input type="text" class="form-control" id="exampleInputLocation"  placeholder="Địa điểm (nơi nhặt hoặc mất)" name="location" value="{{$post->location}}">
+        @error('location'
+        )
+            <div style="color:red">{{ $message }}</div>
+            @enderror
     </div>
     <button type="submit" class="btn btn-primary" >Cập nhật</button>
+    <a href="{{route('trang-chu-nguoi-dung')}}" class="btn btn-outline-primary">< Quay lại</a>
+
 </form>
 @endsection
 @section('js')

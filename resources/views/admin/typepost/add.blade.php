@@ -19,7 +19,7 @@
         <label for="description">Mô tả</label>
         <textarea class="form-control" id="description" rows="3" name="description"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
 </form>
-<a href="/admin/type-post/danh-sach">< Back</a>
+<a href="/admin/type-post/danh-sach">< Quay lại</a>
 @endsection

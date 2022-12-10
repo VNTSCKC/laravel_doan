@@ -36,6 +36,7 @@
                 <td><a class="btn btn-info" href="{{route('chi-tiet-loai-ban-tin',['id'=>$typeNewsCast->id])}}">Chi tiết</a></td>
                 <td><a class="btn btn-secondary" href="{{route('cap-nhat-loai-ban-tin',['id'=>$typeNewsCast->id])}}">Sửa</a></td>
                 <td><a class="btn btn-danger" href="/admin/type-news-cast/xoa/{{$typeNewsCast->id}}">Xóa</a></td>
+
               </tr>
             @endforeach
         </tbody> --}}

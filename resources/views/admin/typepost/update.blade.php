@@ -17,7 +17,7 @@
         <label for="description">Mô tả</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" >{{$typePost->description}}</textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
 </form>
-<a href="/admin/type-post/danh-sach">< Back</a>
+<a href="/admin/type-post/danh-sach">< Quay lại</a>
 @endsection
